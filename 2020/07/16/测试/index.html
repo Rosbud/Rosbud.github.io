@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      317 字
+      475 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -205,30 +205,38 @@
             
             <article class="markdown-body">
               <p>这篇文章简单对PHP的各种常用基础知识进行介绍，以理解为重点，省略大部分运行情况</p>
-<h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>   1.1 <strong>boolean</strong></p>
-<pre><code>```$boo = true```    将变量命名为布尔型</code></pre><p>   1.2 <strong>string</strong></p>
-<pre><code>```$a = &apos;字符串&apos;``` 单引号的变量按普通字符串输出
-
-```$a = &quot;字符串&quot;```    双引号中包含的变量会被自动替换成实际数值
-
-
-`$string = &lt;&lt;&lt;str    要输出的字符    str`    输出字符，效果同双引号</code></pre><p>   1.3 <strong>integer</strong></p>
-<pre><code>可以声明十进制、八进制和十六进制整数</code></pre><p>   1.4 <strong>float</strong></p>
-<pre><code>提供两种书写格式：标准格式和科学计数法（例 3.58E1,87E-3）</code></pre><p>   1.5 <strong>array</strong></p>
-<pre><code>一组数据的集合
-
-语法格式：`$array = array(&apos;value1&apos;,&apos;value2&apos;)` 或 `$array[key]=&apos;value&apos;` 或 `$array = array(key1 =&gt; value1,key2=&gt;value2)`
-
-其中 **key** 是数组元素的下标， **value** 是数组下标对应的元素</code></pre><p>   1.6 <strong>object</strong></p>
-<pre><code>面向对象和面向过程</code></pre><p>   1.7 <strong>特殊数据类型</strong></p>
-<pre><code>资源（resource）和空值（null）
-
-&gt;资源：又叫句柄，保存了到外部资源的一个引用
+<h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>&nbsp; 1.1 <strong>boolean</strong></p>
+<p>&nbsp; &nbsp; <code>$boo = true</code>    将变量命名为布尔型<br>&nbsp; 1.2 <strong>string</strong></p>
+<p>&nbsp; &nbsp; <code>$a = &#39;字符串&#39;</code> 单引号的变量按普通字符串输出</p>
+<p>&nbsp; &nbsp; <code>$a = &quot;字符串&quot;</code>    双引号中包含的变量会被自动替换成实际数值</p>
+<p>&nbsp; &nbsp; <code>$string = &lt;&lt;&lt;str    要输出的字符    str</code>    输出字符，效果同双引号</p>
+<p>&nbsp; 1.3 <strong>integer</strong></p>
+<p>&nbsp; &nbsp; 可以声明十进制、八进制和十六进制整数</p>
+<p>&nbsp; 1.4 <strong>float</strong></p>
+<p>&nbsp; &nbsp; 提供两种书写格式：标准格式和科学计数法（例 3.58E1,87E-3）</p>
+<p>&nbsp; 1.5 <strong>array</strong></p>
+<p>&nbsp; &nbsp; 一组数据的集合</p>
+<p>&nbsp; &nbsp; 语法格式：<code>$array = array(&#39;value1&#39;,&#39;value2&#39;)</code> 或 <code>$array[key]=&#39;value&#39;</code> 或 <code>$array = array(key1 =&gt; value1,key2=&gt;value2)</code></p>
+<p>&nbsp; &nbsp; 其中 <strong>key</strong> 是数组元素的下标， <strong>value</strong> 是数组下标对应的元素</p>
+<p>&nbsp; 1.6 <strong>object</strong></p>
+<p>&nbsp; &nbsp; 面向对象和面向过程</p>
+<p>&nbsp; 1.7 <strong>特殊数据类型</strong></p>
+<p>&nbsp; 资源（resource）和空值（null）</p>
+<pre><code>&gt;资源：又叫句柄，保存了到外部资源的一个引用
 
 &gt;空值：表示变量没有值
 
 &gt;unset()：销毁指定的变量</code></pre><p>&nbsp; </p>
-<h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><h4 id="检测数据类型"><a href="#检测数据类型" class="headerlink" title="检测数据类型"></a>检测数据类型</h4>
+<h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><p>&nbsp; &nbsp; 变量前加上 <strong>小括号</strong> 括起来的类型即可</p>
+<pre><code>(boolean)$sum 、(inter)$boo</code></pre><p>&nbsp; &nbsp; 函数 <strong>settype（）</strong> 完成</p>
+<pre><code>bool settype(mixed var,string type)</code></pre><p>&nbsp; &nbsp; <strong>var</strong>  —— 指定的变量</p>
+<p>&nbsp; &nbsp; <strong>type</strong> —— 指定的类型（boolean、float、integer、array、null、object、string）</p>
+<p>&nbsp; &nbsp; 转换成功返回 true 失败则 false</p>
+<h4 id="检测数据类型"><a href="#检测数据类型" class="headerlink" title="检测数据类型"></a>检测数据类型</h4><p>&nbsp; &nbsp; PHP内有许多内置函数关于检测，为 <strong>is</strong> 系列</p>
+<pre><code>is_bool ; is_string ; is_float ; is_int ; is_null ; is_array ; 
+
+is_null ; is_object ; is_numeric(检测是否为数字或者由数字组成的字符串)</code></pre><p>&nbsp; </p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><h4 id="声明和使用"><a href="#声明和使用" class="headerlink" title="声明和使用"></a>声明和使用</h4><h4 id="预定义常量"><a href="#预定义常量" class="headerlink" title="预定义常量"></a>预定义常量</h4>
             </article>
             <hr>
             <div>
