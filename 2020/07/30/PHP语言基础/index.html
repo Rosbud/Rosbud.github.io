@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.3k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      28
        分钟
     </span>
   
@@ -323,7 +323,33 @@ $strn        为函数参数</code></pre><p>&nbsp;</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-函数返回值"><a href="#nbsp-nbsp-nbsp-nbsp-函数返回值" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;函数返回值"></a>&nbsp;&nbsp;&nbsp;&nbsp;函数返回值</h4><p>&nbsp;&nbsp;用 <strong>return</strong> 返回一个值，只能一个值，若要多个则需要创建数组</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-变量函数"><a href="#nbsp-nbsp-nbsp-nbsp-变量函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;变量函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;变量函数</h4><p>&nbsp;&nbsp;基本效果如同可变变量一样（套娃）<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 <h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><h3 id="nbsp-nbsp-条件控制语句"><a href="#nbsp-nbsp-条件控制语句" class="headerlink" title="&nbsp;&nbsp;条件控制语句"></a>&nbsp;&nbsp;条件控制语句</h3><p>&nbsp;&nbsp;包括 <strong>if</strong> , <strong>if else</strong> , <strong>elseif</strong> , <strong>switch</strong> </p>
-<h3 id="nbsp-nbsp-循环控制语句"><a href="#nbsp-nbsp-循环控制语句" class="headerlink" title="&nbsp;&nbsp;循环控制语句"></a>&nbsp;&nbsp;循环控制语句</h3><p>&nbsp;&nbsp;</p>
+<h3 id="nbsp-nbsp-循环控制语句"><a href="#nbsp-nbsp-循环控制语句" class="headerlink" title="&nbsp;&nbsp;循环控制语句"></a>&nbsp;&nbsp;循环控制语句</h3><p>&nbsp;&nbsp;包括 <strong>while</strong> ， <strong>do…while</strong> , <strong>for</strong> ，<strong>foreach</strong></p>
+<p>&nbsp;&nbsp;<strong>foreach</strong> 语句将遍历数组内</p>
+<pre><code>foreach($array as $value)
+    语句;
+或
+foreach($array as $key =&gt;$value)
+    语句;</code></pre><p>&nbsp;</p>
+<h3 id="nbsp-nbsp-跳转语句"><a href="#nbsp-nbsp-跳转语句" class="headerlink" title="&nbsp;&nbsp;跳转语句"></a>&nbsp;&nbsp;跳转语句</h3><p>&nbsp;&nbsp;包括了 <strong>break</strong> ， <strong>continue</strong></p>
+<h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><h3 id="nbsp-nbsp-字符串定义"><a href="#nbsp-nbsp-字符串定义" class="headerlink" title="&nbsp;&nbsp;字符串定义"></a>&nbsp;&nbsp;字符串定义</h3><h4 id="nbsp-nbsp-nbsp-nbsp-引号定义"><a href="#nbsp-nbsp-nbsp-nbsp-引号定义" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;引号定义"></a>&nbsp;&nbsp;&nbsp;&nbsp;引号定义</h4><p>&nbsp;&nbsp;单引号的内容只会将内容原样输出，而双引号会对内的变量进行替换然后输出</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-定界符定义"><a href="#nbsp-nbsp-nbsp-nbsp-定界符定义" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;定界符定义"></a>&nbsp;&nbsp;&nbsp;&nbsp;定界符定义</h4><p>&nbsp;&nbsp;定界符 <strong>&lt;&lt;&lt;</strong> 用于定义格式化的大文本，定界符内的字符串支持单双引号，并且支持字符变量替换</p>
+<pre><code>&lt;&lt;&lt;（用户自定符号）
+    文本内容
+（用户自定符号）</code></pre><p>&nbsp;</p>
+<h3 id="nbsp-nbsp-字符串操作"><a href="#nbsp-nbsp-字符串操作" class="headerlink" title="&nbsp;&nbsp;字符串操作"></a>&nbsp;&nbsp;字符串操作</h3><h4 id="nbsp-nbsp-nbsp-nbsp-去除字符串特殊字符和首尾空格"><a href="#nbsp-nbsp-nbsp-nbsp-去除字符串特殊字符和首尾空格" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;去除字符串特殊字符和首尾空格"></a>&nbsp;&nbsp;&nbsp;&nbsp;去除字符串特殊字符和首尾空格</h4><p>&nbsp;&nbsp;对用户输入字符进行过滤空格和特殊字符，有 <strong>trim()</strong> , <strong>ltrim()</strong> ，<strong>rtrim()</strong> 来去除</p>
+<p>&nbsp;&nbsp;1.<strong>trim()</strong> 函数</p>
+<pre><code>string trim(string str [,string charlist]);
+trim()主要用于过滤字符串首尾字符
+str 是要操作的字符串对象；charlist为可选参数，一般列出所有希望过滤的字符</code></pre><p>&nbsp;<br>&nbsp;&nbsp;2.<strong>ltrim()</strong> 函数</p>
+<pre><code>string ltrim(string str [,string charlist]);
+ltrim()主要用于过滤字符串左边字符，参数和trim()一样</code></pre><p>&nbsp;<br>&nbsp;&nbsp;3.<strong>rtrim()</strong> 函数</p>
+<pre><code>string ltrim(string str [,string charlist]);
+rtrim()主要用于过滤字符串右边字符，参数和trim()一样</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据"><a href="#nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据"></a>&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据</h4><p>&nbsp;&nbsp;一共有两种转义、还原字符串方式：手工和自动</p>
+<p>&nbsp;&nbsp;1.手动</p>
+<p>&nbsp;&nbsp;使用 <strong>\</strong> 将后面第一个字符变得没有特殊意义</p>
+<p>&nbsp;&nbsp;2.自动</p>
+<p>&nbsp;&nbsp;①<strong>addslashes()</strong>函数</p>
 
             </article>
             <hr>
