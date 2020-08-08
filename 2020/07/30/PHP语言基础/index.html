@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.3k 字
+      3.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      38
        分钟
     </span>
   
@@ -350,6 +350,51 @@ rtrim()主要用于过滤字符串右边字符，参数和trim()一样</code></p
 <p>&nbsp;&nbsp;使用 <strong>\</strong> 将后面第一个字符变得没有特殊意义</p>
 <p>&nbsp;&nbsp;2.自动</p>
 <p>&nbsp;&nbsp;①<strong>addslashes()</strong>函数</p>
+<pre><code>string addslashes(string str)
+addlashes函数是使用反斜线引用字符串
+str为要转义的字符串，返回值为转义后的字符</code></pre><p>&nbsp;<br>&nbsp;&nbsp;②<strong>stripslashes()</strong>函数</p>
+<pre><code>string stripslashes(string str)
+stripslashes函数是反引用一个引用字符串，即将addslashes函数转义后的字符串还原
+str为要还原的字符串</code></pre><p>&nbsp;<br>&nbsp;&nbsp;③<strong>addcslashes()</strong>函数</p>
+<pre><code>string addcslashes(string str,string charlist)
+addcslashes函数对指定的字符串前加上反斜线
+str为将要被操作的字符串，charlist则指定字符串中哪些字符串加反斜线</code></pre><p>&nbsp;<br>&nbsp;&nbsp;④<strong>stripcslashes()</strong>函数</p>
+<pre><code>string stripcslashes(string str)
+stripcslashes函数对addcslashes函数转义的字符进行还原
+str为要还原的字符串</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-获取字符串长度"><a href="#nbsp-nbsp-nbsp-nbsp-获取字符串长度" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;获取字符串长度"></a>&nbsp;&nbsp;&nbsp;&nbsp;获取字符串长度</h4><p>&nbsp;&nbsp;主要使用 <strong>strlen()</strong> 函数进行获取</p>
+<pre><code>int strlen(string str)
+获取字符串长度</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-截取字符串"><a href="#nbsp-nbsp-nbsp-nbsp-截取字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;截取字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;截取字符串</h4><p>&nbsp;&nbsp;对字符串截取可以采用预定义函数 <strong>substr()</strong> 函数实现</p>
+<pre><code>string substr(string str,int start[,int length])
+str     指定字符串对象
+start    指定开始截取字符串的位置，若为负数则从字符串末尾开始
+length    可选参数，指定截取字符串个数，若为负数则表示取倒数第length个字符</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-比较字符串"><a href="#nbsp-nbsp-nbsp-nbsp-比较字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;比较字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;比较字符串</h4><p>&nbsp;&nbsp;比较方法主要有三种：按照字节，按照自然排序和指定源字符串位置开始</p>
+<p>&nbsp;&nbsp;①按照字节进行字符串比较：<strong>strcmp()</strong> 和 <strong>strcasecmp()</strong></p>
+<pre><code>int strcmp(string str1 , string str2)
+int strcasecmp(string str1 , string str2)
+str1和str2为比较的字符串，相等则返回0，str1大于str2返回值大于0，小于则返回小于0
+strcmp()和strcasecmp()差别在于：strcmp()区分大小写而strcasecmp()不区分</code></pre><p>&nbsp;<br>&nbsp;&nbsp;②按自然排序法进行比较：<strong>strnatcmp()</strong></p>
+<pre><code>int strnatcmp(string str1 , string str2)
+strnatcmp()将字符串中的字符从左到右顺序进行比较
+数字和数字比较按照自然排序法，其他则按照ACSII码值比较
+str1和str2为比较的字符，相等返回0，str1比str2大则返回大于0，小则返回小于0</code></pre><p>&nbsp;<br>&nbsp;&nbsp;③指定从源字符串位置开始比较：<strong>strncmp()</strong></p>
+<pre><code>int strncmp(string str1 , string str2 , int len)
+len为必要参数，指定每个字符串中参与比较的字符串数量
+strncmp 区分函数大小写
+返回值和上面的相同</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-检索字符串"><a href="#nbsp-nbsp-nbsp-nbsp-检索字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;检索字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;检索字符串</h4><p>&nbsp;&nbsp;① <strong>strstr()</strong> 函数</p>
+<p>&nbsp;&nbsp;用于获取一个指定字符串在另一个字符串中首次出现的位置到后者末尾的子字符串，成功则返回剩余字符串，失败则返回false。简单的说就是返回一个字符串某个标识后面所有字符。</p>
+<pre><code>string strstr(string haystack ， string needle)
+haystack    必要参数，指定从哪个字符串中进行检索
+needle        必要参数，指定搜索对象。
+strstr()区分字母大小写//大小写绕过</code></pre><p>&nbsp;<br>&nbsp;&nbsp;② <strong>substr_count()</strong> 函数</p>
+<p>&nbsp;&nbsp;获取指定字符在字符串中出现的次数</p>
+<pre><code>int substr_count(string haystack ， string needle)
+haystack    指定字符串
+needle        指定字符</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-替换字符串"><a href="#nbsp-nbsp-nbsp-nbsp-替换字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;替换字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;替换字符串</h4><p>&nbsp;&nbsp;① <strong>str_ireplace()</strong> 函数</p>
 
             </article>
             <hr>
