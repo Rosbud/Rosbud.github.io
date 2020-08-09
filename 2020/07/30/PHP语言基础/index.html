@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.1k 字
+      4.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      38
+      49
        分钟
     </span>
   
@@ -317,9 +317,9 @@ function fun_name($str1,...$strn){
 function    为声明自定义函数时必须使用的关键字
 fun_name    为自定义函数名
 $strn        为函数参数</code></pre><p>&nbsp;</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-函数间传递参数"><a href="#nbsp-nbsp-nbsp-nbsp-函数间传递参数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;函数间传递参数"></a>&nbsp;&nbsp;&nbsp;&nbsp;函数间传递参数</h4><p>&nbsp;&nbsp;1. 按值传递：    传参在函数定义域内值改变不影响外部</p>
-<p>&nbsp;&nbsp;2. 按引用传递：     传参时加上 <strong>&amp;</strong> 将参数内存地址传入，函数定义域内外参数的值都会改变</p>
-<p>&nbsp;&nbsp;3. 默认参数：    一般放在参数列表末尾，并指定默认值<br>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-函数间传递参数"><a href="#nbsp-nbsp-nbsp-nbsp-函数间传递参数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;函数间传递参数"></a>&nbsp;&nbsp;&nbsp;&nbsp;函数间传递参数</h4><p>&nbsp;&nbsp;1. <strong>按值传递</strong>：    传参在函数定义域内值改变不影响外部</p>
+<p>&nbsp;&nbsp;2. <strong>按引用传递</strong>：     传参时加上 <strong>&amp;</strong> 将参数内存地址传入，函数定义域内外参数的值都会改变</p>
+<p>&nbsp;&nbsp;3. <strong>默认参数</strong> ：    一般放在参数列表末尾，并指定默认值<br>&nbsp;</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-函数返回值"><a href="#nbsp-nbsp-nbsp-nbsp-函数返回值" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;函数返回值"></a>&nbsp;&nbsp;&nbsp;&nbsp;函数返回值</h4><p>&nbsp;&nbsp;用 <strong>return</strong> 返回一个值，只能一个值，若要多个则需要创建数组</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-变量函数"><a href="#nbsp-nbsp-nbsp-nbsp-变量函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;变量函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;变量函数</h4><p>&nbsp;&nbsp;基本效果如同可变变量一样（套娃）<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 <h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><h3 id="nbsp-nbsp-条件控制语句"><a href="#nbsp-nbsp-条件控制语句" class="headerlink" title="&nbsp;&nbsp;条件控制语句"></a>&nbsp;&nbsp;条件控制语句</h3><p>&nbsp;&nbsp;包括 <strong>if</strong> , <strong>if else</strong> , <strong>elseif</strong> , <strong>switch</strong> </p>
@@ -345,7 +345,7 @@ str 是要操作的字符串对象；charlist为可选参数，一般列出所�
 ltrim()主要用于过滤字符串左边字符，参数和trim()一样</code></pre><p>&nbsp;<br>&nbsp;&nbsp;3.<strong>rtrim()</strong> 函数</p>
 <pre><code>string ltrim(string str [,string charlist]);
 rtrim()主要用于过滤字符串右边字符，参数和trim()一样</code></pre><p>&nbsp;</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据"><a href="#nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据"></a>&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据</h4><p>&nbsp;&nbsp;一共有两种转义、还原字符串方式：手工和自动</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据"><a href="#nbsp-nbsp-nbsp-nbsp-转义和还原字符串数据" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据"></a>&nbsp;&nbsp;&nbsp;&nbsp;转义和还原字符串数据</h4><p>&nbsp;&nbsp;一共有两种转义、还原字符串方式：<strong>手工和自动</strong></p>
 <p>&nbsp;&nbsp;1.手动</p>
 <p>&nbsp;&nbsp;使用 <strong>\</strong> 将后面第一个字符变得没有特殊意义</p>
 <p>&nbsp;&nbsp;2.自动</p>
@@ -370,7 +370,7 @@ str为要还原的字符串</code></pre><p>&nbsp;</p>
 str     指定字符串对象
 start    指定开始截取字符串的位置，若为负数则从字符串末尾开始
 length    可选参数，指定截取字符串个数，若为负数则表示取倒数第length个字符</code></pre><p>&nbsp;</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-比较字符串"><a href="#nbsp-nbsp-nbsp-nbsp-比较字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;比较字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;比较字符串</h4><p>&nbsp;&nbsp;比较方法主要有三种：按照字节，按照自然排序和指定源字符串位置开始</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-比较字符串"><a href="#nbsp-nbsp-nbsp-nbsp-比较字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;比较字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;比较字符串</h4><p>&nbsp;&nbsp;比较方法主要有三种：<strong>按照字节，按照自然排序和指定源字符串位置开始</strong></p>
 <p>&nbsp;&nbsp;①按照字节进行字符串比较：<strong>strcmp()</strong> 和 <strong>strcasecmp()</strong></p>
 <pre><code>int strcmp(string str1 , string str2)
 int strcasecmp(string str1 , string str2)
@@ -395,6 +395,52 @@ strstr()区分字母大小写//大小写绕过</code></pre><p>&nbsp;<br>&nbsp;&n
 haystack    指定字符串
 needle        指定字符</code></pre><p>&nbsp;</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-替换字符串"><a href="#nbsp-nbsp-nbsp-nbsp-替换字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;替换字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;替换字符串</h4><p>&nbsp;&nbsp;① <strong>str_ireplace()</strong> 函数</p>
+<p>&nbsp;&nbsp;使用新的字符串替换原始字符串中指定的字符</p>
+<pre><code>mixed str_ireplace(mixed search ，mixed replace，mixed subject [，int &amp;count])
+search    必要参数，要搜索的值，可以用array来提供多个值
+replace    必要参数，指定替换的值
+subject    必要参数，要被搜索和替换的字符串或数组
+count    可选参数，执行替换的数量
+str_ireplace 函数不区分大小写</code></pre><p>&nbsp;<br>&nbsp;&nbsp;② <strong>substr_replace()</strong> 函数</p>
+<p>&nbsp;&nbsp;用于对指定字符串中的部分字符串进行替换</p>
+<pre><code>mixed substr_replace(mixed string，mixed repl，mixed start ，[mixed length])
+string    指定要操作的原始字符串
+repl    指定要替换后的新字符串
+start    指定替换字符串开始的位置
+length    可选参数，指定返回的字符串长度，默认是返回整个字符串
+若start为负数，而length小于或等于start的值，length的值为0</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-格式化字符串"><a href="#nbsp-nbsp-nbsp-nbsp-格式化字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp; 格式化字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp; 格式化字符串</h4><p>&nbsp;&nbsp;<strong>number_format()</strong> 函数可用来将数字字符串格式化</p>
+<pre><code>string number_format(float number[,int decimals[,string dec_point[,string thousands_sep]]])
+number            为要格式化的数字
+decimals        为要保留的小数位数
+dec_point        为指定小数点显示的字符
+thousands_sep    为指定千位分隔符显示的字符</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-分割和合成字符串"><a href="#nbsp-nbsp-nbsp-nbsp-分割和合成字符串" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;分割和合成字符串"></a>&nbsp;&nbsp;&nbsp;&nbsp;分割和合成字符串</h4><p>&nbsp;&nbsp;① <strong>explode()</strong> 函数按照一定规则对一个字符串进行分割</p>
+<pre><code>array explode(string delimiter,string str[,int limit])
+delimiter    边界上的分隔符
+str            必要参数，指定将要被分割的字符串
+limit        可选参数，若设置了limit参数，则返回的数组包含最多limit个字符
+注意：返回是以数组形式</code></pre><p>&nbsp;<br>&nbsp;&nbsp;② <strong>implode()</strong> 函数将数组内的内容合成一个新的字符串</p>
+<pre><code>string implode(string glue,array pieces)
+glue    字符串类型
+pieces    数组类型，指定要被合并的数组</code></pre><p>&nbsp;</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="nbsp-nbsp-正则表达式的概念"><a href="#nbsp-nbsp-正则表达式的概念" class="headerlink" title="&nbsp;&nbsp;正则表达式的概念"></a>&nbsp;&nbsp;正则表达式的概念</h3><p>&nbsp;&nbsp;正则表达式是一种描述字符串结构的语法规则，是一种特定的格式化模式，可以<strong>匹配、替换、截取匹配的字符串</strong>，类似dos命令中的    dir *.txt</p>
+<p>&nbsp;&nbsp;这里说明几种术语</p>
+<pre><code>grep    最初是ED编辑器的一条命令，用于显示文件中的特定内容，后独立成一个工具
+egrep    grep的扩展版，大大增强grep的能力
+POSIX    可移植操作系统接口，POSIX是一系列标准，确保操作系统之间的可移植性
+Perl    实际抽取与汇报语言，成为与POSIX之后的另一个标准
+PCRE    兼容Perl正则表达式的一套正则引擎，PHP正是使用该引擎之一</code></pre><p>&nbsp;</p>
+<h3 id="nbsp-nbsp-正则表达式的语法规则"><a href="#nbsp-nbsp-正则表达式的语法规则" class="headerlink" title="&nbsp;&nbsp;正则表达式的语法规则"></a>&nbsp;&nbsp;正则表达式的语法规则</h3><p>&nbsp;&nbsp;一个完整的正则表达式由两部分构成，<strong>元字符</strong>和<strong>文本字符</strong>。元字符是具有特殊含义的字符，如前面列举dos命令中的 * 符号。文本字符就是普通文本，如数字和字母。PCRE风格的正则表达式一般都是放置在定界符 <strong>/</strong> 中间。</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-行定位符-和"><a href="#nbsp-nbsp-nbsp-nbsp-行定位符-和" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;行定位符(^ 和 $)"></a>&nbsp;&nbsp;&nbsp;&nbsp;行定位符(<strong>^</strong> 和 <strong>$</strong>)</h4><p>&nbsp;&nbsp;行定位符就是用来描述字符的边界。__ <strong>^</strong> 表示行的开始， <strong>$</strong> 表示行的结尾。__</p>
+<pre><code>^tm 该表达式表示要匹配字串 tm 的开始位置是行头
+例如： tm this is a dog 就可以匹配，this is a dog tm 则不匹配
+tm$ 则可以匹配例子:this is a dog tm
+tm 则匹配的字串可以出现在字符串任意位置</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-单词分界符-b-和-B"><a href="#nbsp-nbsp-nbsp-nbsp-单词分界符-b-和-B" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;单词分界符(\b  和 \B)"></a>&nbsp;&nbsp;&nbsp;&nbsp;单词分界符(<strong>\b</strong>  和 <strong>\B</strong>)</h4><p>&nbsp;&nbsp;以上面的例子，若按照 tm 则会匹配出 html 内的一部分 tm 而非一个单词 tm ，这是则可使用单词分界符 <strong>\b</strong> 表示，<strong>这表示要查找的是为一个完整的单词</strong>。 </p>
+<pre><code>\btm\b</code></pre><p>&nbsp;&nbsp;<strong>\B</strong> 正好相反，<strong>表示匹配的是单词或字符串的一部分</strong>。</p>
+<pre><code>\Btm\B</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-字符类"><a href="#nbsp-nbsp-nbsp-nbsp-字符类" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])"></a>&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])</h4><p>&nbsp;&nbsp;正则表达式是区分大小写的，若要忽略大小写则使用 <strong>[ ]</strong></p>
 
             </article>
             <hr>
