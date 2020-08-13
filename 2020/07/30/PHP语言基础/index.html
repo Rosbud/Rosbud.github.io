@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      4.8k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      58
        分钟
     </span>
   
@@ -440,8 +440,40 @@ tm 则匹配的字串可以出现在字符串任意位置</code></pre><p>&nbsp;<
 <h4 id="nbsp-nbsp-nbsp-nbsp-单词分界符-b-和-B"><a href="#nbsp-nbsp-nbsp-nbsp-单词分界符-b-和-B" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;单词分界符(\b  和 \B)"></a>&nbsp;&nbsp;&nbsp;&nbsp;单词分界符(<strong>\b</strong>  和 <strong>\B</strong>)</h4><p>&nbsp;&nbsp;以上面的例子，若按照 tm 则会匹配出 html 内的一部分 tm 而非一个单词 tm ，这是则可使用单词分界符 <strong>\b</strong> 表示，<strong>这表示要查找的是为一个完整的单词</strong>。 </p>
 <pre><code>\btm\b</code></pre><p>&nbsp;&nbsp;<strong>\B</strong> 正好相反，<strong>表示匹配的是单词或字符串的一部分</strong>。</p>
 <pre><code>\Btm\B</code></pre><p>&nbsp;</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-字符类"><a href="#nbsp-nbsp-nbsp-nbsp-字符类" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])"></a>&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])</h4><p>&nbsp;&nbsp;正则表达式是区分大小写的，若要忽略大小写则使用 <strong>[ ]</strong></p>
-
+<h4 id="nbsp-nbsp-nbsp-nbsp-字符类"><a href="#nbsp-nbsp-nbsp-nbsp-字符类" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])"></a>&nbsp;&nbsp;&nbsp;&nbsp;字符类([ ])</h4><p>&nbsp;&nbsp;正则表达式是区分大小写的，若要<strong>忽略大小写</strong>则使用 <strong>[ ]</strong></p>
+<pre><code>若要匹配 tm 不区分大小写则应该写作：[Tt][Mm]</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-选择字符"><a href="#nbsp-nbsp-nbsp-nbsp-选择字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;选择字符( | )"></a>&nbsp;&nbsp;&nbsp;&nbsp;选择字符( | )</h4><p>&nbsp;&nbsp;若要忽略大小写还可以使用选择字符，符号理解成<strong>或</strong></p>
+<pre><code>匹配 tm 不区分大小写也可以写成：(T|t)(M|m)
+| 和 [] 符号的差别在于前者可以匹配任意长度的字符串，后者只能匹配单个字符</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-连字符"><a href="#nbsp-nbsp-nbsp-nbsp-连字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;连字符( - )"></a>&nbsp;&nbsp;&nbsp;&nbsp;连字符( - )</h4><p>&nbsp;&nbsp;<strong>匹配变量的第一个字母</strong>可以使用连字符解决</p>
+<pre><code>[a-zA-Z]</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-排除字符"><a href="#nbsp-nbsp-nbsp-nbsp-排除字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;排除字符([^])"></a>&nbsp;&nbsp;&nbsp;&nbsp;排除字符([^])</h4><p>&nbsp;&nbsp;<strong>若要匹配不符合规则的变量</strong>，可以使用 ^ 符号</p>
+<pre><code>匹配不以字母开头的变量：[^a-zA-Z]</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-限定符-n-m"><a href="#nbsp-nbsp-nbsp-nbsp-限定符-n-m" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;限定符( ?*+{n,m} )"></a>&nbsp;&nbsp;&nbsp;&nbsp;限定符( ?*+{n,m} )</h4><p>&nbsp;&nbsp;对于<strong>重复出现的字符串</strong>，可以使用限定符来实现匹配</p>
+<pre><code>?        匹配前面的字符零次或一次
++        匹配前面的字符一次或多次
+*        匹配前面的字符零次或多次
+{n,}    匹配前面的字符n次
+{,m}    匹配前面的字符最少n次
+{n,m}    匹配前面的字符最少n次 最多m次</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-点号字符"><a href="#nbsp-nbsp-nbsp-nbsp-点号字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;点号字符( . )"></a>&nbsp;&nbsp;&nbsp;&nbsp;点号字符( . )</h4><p>&nbsp;&nbsp;点号可以<strong>匹配出换行符外的任意一个字符</strong></p>
+<pre><code>匹配s开头、t结尾、中间一个任意字母的单词：    ^s.t$
+匹配第一个字母为r、第三个为s、最后一个为t：    ^r.s.*t$</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-转义字符"><a href="#nbsp-nbsp-nbsp-nbsp-转义字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;转义字符( \ )"></a>&nbsp;&nbsp;&nbsp;&nbsp;转义字符( \ )</h4><p>&nbsp;&nbsp;和普通用法里面差不多，都是将<strong>特殊字符转义为普通字符</strong></p>
+<pre><code>匹配IP地址：[0-9]{1,3}(.[0-9]{1,3}){3}</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-反斜线"><a href="#nbsp-nbsp-nbsp-nbsp-反斜线" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;反斜线()"></a>&nbsp;&nbsp;&nbsp;&nbsp;反斜线()</h4><p>&nbsp;&nbsp;反斜线除了做转义字符以外，还可以<strong>显示不可打印字符，指定预定义字符集、定义断言</strong></p>
+<pre><code>显示不可打印字符：    \a        警报
+指定预定义字符集：    \d        任意一个十进制数字
+定义断言;            例如前面介绍的\b \B</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-括号字符"><a href="#nbsp-nbsp-nbsp-nbsp-括号字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;括号字符()"></a>&nbsp;&nbsp;&nbsp;&nbsp;括号字符()</h4><p>&nbsp;&nbsp;括号第一个作用就是<strong>改变限定符的作用范围</strong></p>
+<p>&nbsp;&nbsp;第二个作用就是分组</p>
+<pre><code>分组：例如前面匹配IP地址，括号加上表示对分组进行重复操作</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-反向作用"><a href="#nbsp-nbsp-nbsp-nbsp-反向作用" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;反向作用"></a>&nbsp;&nbsp;&nbsp;&nbsp;反向作用</h4><p>&nbsp;&nbsp;反向引用就是依靠子表达式的记忆功能来匹配连续出现的字符串或字母（后面再详细举例说明）</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-模式修饰符"><a href="#nbsp-nbsp-nbsp-nbsp-模式修饰符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;模式修饰符"></a>&nbsp;&nbsp;&nbsp;&nbsp;模式修饰符</h4><p>&nbsp;&nbsp;模式修饰符的作用就是设定模式，规定正则表达式应该如何解释和应用</p>
+<pre><code>i    忽略大小写模式    写法 (?i)...(?-i) or (?i:...)
+m    多文本模式        写法 如上，换个字母即可
+s    单文本模式        写法 如上
+x    忽略空白字符        写法 如上</code></pre><p>&nbsp;</p>
+<h3 id="nbsp-nbsp-PCRE兼容正则表达式函数"><a href="#nbsp-nbsp-PCRE兼容正则表达式函数" class="headerlink" title="&nbsp;&nbsp;PCRE兼容正则表达式函数"></a>&nbsp;&nbsp;PCRE兼容正则表达式函数</h3>
             </article>
             <hr>
             <div>
