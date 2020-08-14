@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      2.5k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      28
        分钟
     </span>
   
@@ -250,16 +250,39 @@
 <p>&nbsp;&nbsp;A-G-DL-P策略是将用户账号添加到全局组中，将全局组添加到域本地组中，然后为域本地组分配资源权限。按照AGDLP的原则对用户进行组织和管理起来更容易。</p>
 <p>&nbsp;&nbsp;在AGDLP形成以后,当给一个用户某一个权限的时候,只要把这个用户加入到某一个本地域组就可以了。</p>
 <p>&nbsp;&nbsp;几个比较重要的域本地组权限</p>
-<pre><code>Administrators（管理员组）            权限最高，域森林中最强大
+<pre><code>Administrators（管理员组)            权限最高，域森林中最强大
 Remote Desktop Users(远程登录组)        有远程登陆权限
 Print Operators（打印机操作员组）        管理网络打印机，本地登录和关闭DC
 Account Operators（帐号操作员组）        
-Server Operaters（服务器操作员组）
-Backup Operators（备份操作员组）</code></pre><p>&nbsp;&nbsp;几个全局组、通用组的权限</p>
-<pre><code>Domain Admins（域管理员组）
+Server Operaters（服务器操作员组)        管理域服务器
+Backup Operators（备份操作员组）        在域控制器中执行备份和还原</code></pre><p>&nbsp;&nbsp;几个全局组、通用组的权限</p>
+<pre><code>Domain Admins（域管理员组）                
 Enterprise Admins（企业系统管理员组）
 Schema Admins（架构管理员组）
-Domain Users（域用户组）</code></pre>
+Domain Users（域用户组）</code></pre><p>&nbsp;</p>
+<h2 id="PowerShell基础"><a href="#PowerShell基础" class="headerlink" title="PowerShell基础"></a>PowerShell基础</h2><p>&nbsp;&nbsp;PowerShell是一种命令行外壳程序和脚本环境，内置于每个受支持的Windows版本中，可以看作cmd的拓展。</p>
+<p>&nbsp;&nbsp;winser12可直接打开</p>
+<p><img src="/img/powershell1.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;输入 <strong>Get-Host</strong> 或 <strong>$PSversionTable.PSVersion</strong> 可以查看版本</p>
+<h3 id="nbsp-nbsp-PowerShell基本概念"><a href="#nbsp-nbsp-PowerShell基本概念" class="headerlink" title="&nbsp;&nbsp;PowerShell基本概念"></a>&nbsp;&nbsp;PowerShell基本概念</h3><h4 id="nbsp-amp-nbsp-nbsp-nbsp-ps1文件"><a href="#nbsp-amp-nbsp-nbsp-nbsp-ps1文件" class="headerlink" title="&nbsp;&amp;nbsp&nbsp;&nbsp;;.ps1文件"></a>&nbsp;&amp;nbsp&nbsp;&nbsp;;.ps1文件</h4><p>&nbsp;&nbsp;PowerShell就是简单的文本文件，拓展名为 <strong>.ps1</strong> </p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-执行策略"><a href="#nbsp-nbsp-nbsp-nbsp-执行策略" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;执行策略"></a>&nbsp;&nbsp;&nbsp;&nbsp;执行策略</h4><p>&nbsp;&nbsp;为防止使用者恶意运行脚本，PowerShell提供的默认策略是：不能运行</p>
+<p>&nbsp;&nbsp;如果脚本不能运行，可以使用 <strong>Get-ExecutionPolicy</strong> 来查询当前的执行策略</p>
+<p><img src="/img/powershell2.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>Restricted：脚本不能运行
+RemoteSigned：在本地创建的脚本可以运行，网上下载的不可（有数字证书也可）
+ALLSigned：仅当脚本由受信任的发布者签名时才能运行
+Unrestricted：允许所有脚本运行</code></pre><p>&nbsp;<br>&nbsp;&nbsp;也可以使用cmdlet命令来设置PowerShell的执行策略</p>
+<pre><code>Set-ExecutionPolicy &lt;policy name&gt;</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-运行脚本"><a href="#nbsp-nbsp-nbsp-nbsp-运行脚本" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;运行脚本"></a>&nbsp;&nbsp;&nbsp;&nbsp;运行脚本</h4><p>&nbsp;&nbsp;要运行一个脚本，必需输入完整路径和文件名或者在当前目录输入（和Linux命令类似）例如： .\a.spl</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-管道"><a href="#nbsp-nbsp-nbsp-nbsp-管道" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;管道"></a>&nbsp;&nbsp;&nbsp;&nbsp;管道</h4><p>&nbsp;&nbsp;管道的作用是将一个命令的输出作为另一个命令的输入，两个命令之间用 <strong>|</strong> 连接。</p>
+<h3 id="nbsp-nbsp-常用命令"><a href="#nbsp-nbsp-常用命令" class="headerlink" title="&nbsp;&nbsp;常用命令"></a>&nbsp;&nbsp;常用命令</h3><h4 id="nbsp-nbsp-nbsp-nbsp-基本支持"><a href="#nbsp-nbsp-nbsp-nbsp-基本支持" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;基本支持"></a>&nbsp;&nbsp;&nbsp;&nbsp;基本支持</h4><p>&nbsp;&nbsp;PowerShell下类似cmd命令的称为cmdlet命令，命名规范一致，都采用“动词-名词”，命令不区分大小写。</p>
+<pre><code>1、新建目录：New-ltem whitecellclub-ltemType Directory。
+2、新建文件：New-ltem light.txt-ltemType File。
+3、删除目录：Remove-ltem whitecellclub。
+4、显示文本内容：Get-Content test.txt。
+5、设置文本内容：Set-Content test.txt-Va l u e&apos;&apos;hello,word! &apos;&apos;。
+6、追加内容：Add-Content light.txt-Value &apos;&apos;i love you &apos;&apos;。
+7、清除内容：Clear-Content test.txt。</code></pre>
             </article>
             <hr>
             <div>
