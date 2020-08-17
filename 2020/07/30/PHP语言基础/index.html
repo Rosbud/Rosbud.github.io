@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.8k 字
+      5.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      58
+      62
        分钟
     </span>
   
@@ -467,13 +467,20 @@ tm 则匹配的字串可以出现在字符串任意位置</code></pre><p>&nbsp;<
 <h4 id="nbsp-nbsp-nbsp-nbsp-括号字符"><a href="#nbsp-nbsp-nbsp-nbsp-括号字符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;括号字符()"></a>&nbsp;&nbsp;&nbsp;&nbsp;括号字符()</h4><p>&nbsp;&nbsp;括号第一个作用就是<strong>改变限定符的作用范围</strong></p>
 <p>&nbsp;&nbsp;第二个作用就是分组</p>
 <pre><code>分组：例如前面匹配IP地址，括号加上表示对分组进行重复操作</code></pre><p>&nbsp;</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-反向作用"><a href="#nbsp-nbsp-nbsp-nbsp-反向作用" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;反向作用"></a>&nbsp;&nbsp;&nbsp;&nbsp;反向作用</h4><p>&nbsp;&nbsp;反向引用就是依靠子表达式的记忆功能来匹配连续出现的字符串或字母（后面再详细举例说明）</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-反向作用"><a href="#nbsp-nbsp-nbsp-nbsp-反向作用" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;反向作用"></a>&nbsp;&nbsp;&nbsp;&nbsp;反向作用</h4><p>&nbsp;&nbsp;反向引用就是依靠子表达式的记忆功能来匹配连续出现的字符串或字母</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-模式修饰符"><a href="#nbsp-nbsp-nbsp-nbsp-模式修饰符" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;模式修饰符"></a>&nbsp;&nbsp;&nbsp;&nbsp;模式修饰符</h4><p>&nbsp;&nbsp;模式修饰符的作用就是设定模式，规定正则表达式应该如何解释和应用</p>
 <pre><code>i    忽略大小写模式    写法 (?i)...(?-i) or (?i:...)
 m    多文本模式        写法 如上，换个字母即可
 s    单文本模式        写法 如上
 x    忽略空白字符        写法 如上</code></pre><p>&nbsp;</p>
-<h3 id="nbsp-nbsp-PCRE兼容正则表达式函数"><a href="#nbsp-nbsp-PCRE兼容正则表达式函数" class="headerlink" title="&nbsp;&nbsp;PCRE兼容正则表达式函数"></a>&nbsp;&nbsp;PCRE兼容正则表达式函数</h3>
+<h3 id="nbsp-nbsp-PCRE兼容正则表达式函数"><a href="#nbsp-nbsp-PCRE兼容正则表达式函数" class="headerlink" title="&nbsp;&nbsp;PCRE兼容正则表达式函数"></a>&nbsp;&nbsp;PCRE兼容正则表达式函数</h3><h4 id="nbsp-nbsp-nbsp-nbsp-preg-grep-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-grep-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_grep()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_grep()函数</h4><p>&nbsp;&nbsp;该函数使用数组input中的元素一一匹配表达式pattern，最后返回由所有相匹配的元素所组成的数组。</p>
+<pre><code>array preg_grep( string pattern,array input )</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-preg-match-和preg-match-all-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-match-和preg-match-all-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_match()和preg_match_all()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_match()和preg_match_all()函数</h4><p>&nbsp;&nbsp;在字符串subject中匹配表达式pattern，函数返回匹配的次数。如果有数组matches，那每次匹配的结果都会存储到数组matches中。</p>
+<pre><code>int preg_match/preg_match_all(string pattern,string subject[,array matches])</code></pre><p>&nbsp;<br>&nbsp;&nbsp;对于<strong>preg_match()函数的返回值只会是0和1</strong>，因为该函数在<strong>匹配成功一次后便停止继续查找</strong>。而<strong>preg_match_all()则会匹配到最后才会停止</strong>。故对于preg_match()来说,matches数组可有可无，但对preg_match_all()函数来说则必须有。</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-preg-quote-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-quote-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_quote()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_quote()函数</h4><p>&nbsp;&nbsp;函数将字符串str中的所有特殊字符串进行自动转义，如果有参数delimiter，那么该参数所包含的字符串也将被转义。</p>
+<pre><code>string preg_quote(string str[,string delimiter])</code></pre><p>&nbsp;</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-preg-replace-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-replace-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_replace()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_replace()函数</h4><p>&nbsp;&nbsp;函数在字符串subject中匹配表达式pattern，并将匹配项替换成字符串replacement，如果有参数limit，则替换limit次。</p>
+<pre><code>mixed preg_replace(mixed pattern,mixed replacement,mixed subject[,int limit])</code></pre>
             </article>
             <hr>
             <div>

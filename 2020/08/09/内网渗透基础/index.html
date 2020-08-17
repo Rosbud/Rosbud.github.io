@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.8k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      32
        分钟
     </span>
   
@@ -282,7 +282,40 @@ Unrestricted：允许所有脚本运行</code></pre><p>&nbsp;<br>&nbsp;&nbsp;也
 4、显示文本内容：Get-Content test.txt。
 5、设置文本内容：Set-Content test.txt-Va l u e&apos;&apos;hello,word! &apos;&apos;。
 6、追加内容：Add-Content light.txt-Value &apos;&apos;i love you &apos;&apos;。
-7、清除内容：Clear-Content test.txt。</code></pre>
+7、清除内容：Clear-Content test.txt。</code></pre><p>&nbsp;</p>
+<h2 id="VMware域环境配置"><a href="#VMware域环境配置" class="headerlink" title="VMware域环境配置"></a>VMware域环境配置</h2><h3 id="nbsp-nbsp-基本配置"><a href="#nbsp-nbsp-基本配置" class="headerlink" title="&nbsp;&nbsp;基本配置"></a>&nbsp;&nbsp;基本配置</h3><p>&nbsp;&nbsp;首先对虚拟机进行配置自定义网络</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cp1.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;这里新建了一个VMnet2作为域专用地址，可以通过设置子网IP和DHCP分配的地址来进行对虚拟机进行分配，不过不能设置网关，需要虚拟机单独去配置（基本DHCP就没什么用了）</p>
+<p>&nbsp;&nbsp;这里使用了三台测试机，分别为WinSer2012作为网关和DNS的地址，WinSer08和一台win7作为域内其他主机。</p>
+<p>&nbsp;&nbsp;对每台设备进行关闭防火墙和IP地址配置，让三台主机都互相能够ping通</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cip.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后对WinSer2012进行改名，改为DC</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cgaiming.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;重启Winser2012后，对该服务器进行配置。进行添加DNS和AD域服务。</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Ctianjia.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后默认点击下一步然后安装。</p>
+<p>&nbsp;&nbsp;点击出现的黄色感叹。</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxiangdao.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;按照要求配置根域名</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxinlin.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxinlin2.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后一直默认下一步，直到安装完成，重启</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad1.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;接下来对AD添加用户</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad2.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;选择用户和计算机</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad3.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后创建用户名和密码</p>
+<h3 id="nbsp-nbsp-加入域"><a href="#nbsp-nbsp-加入域" class="headerlink" title="&nbsp;&nbsp;加入域"></a>&nbsp;&nbsp;加入域</h3><p>&nbsp;&nbsp;接下来到win7上加入域</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadwin7.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后输入刚刚创建的用户密码</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadwin72.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;显示成功加入域</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadsucceed.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后重启成功加入域，同时ping域名</p>
+<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadping.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;到此，完成了创建域和加入域的操作</p>
+
             </article>
             <hr>
             <div>
