@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.1k 字
+      5.6k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      62
+      69
        分钟
     </span>
   
@@ -480,7 +480,34 @@ x    忽略空白字符        写法 如上</code></pre><p>&nbsp;</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-preg-quote-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-quote-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_quote()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_quote()函数</h4><p>&nbsp;&nbsp;函数将字符串str中的所有特殊字符串进行自动转义，如果有参数delimiter，那么该参数所包含的字符串也将被转义。</p>
 <pre><code>string preg_quote(string str[,string delimiter])</code></pre><p>&nbsp;</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-preg-replace-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-replace-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_replace()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_replace()函数</h4><p>&nbsp;&nbsp;函数在字符串subject中匹配表达式pattern，并将匹配项替换成字符串replacement，如果有参数limit，则替换limit次。</p>
-<pre><code>mixed preg_replace(mixed pattern,mixed replacement,mixed subject[,int limit])</code></pre>
+<pre><code>mixed preg_replace(mixed pattern,mixed replacement,mixed subject[,int limit])</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-preg-replace-callback-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-replace-callback-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_replace_callback()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_replace_callback()函数</h4><p>&nbsp;&nbsp;与preg_replace()函数功能相同，都用于查找和替换字串。不同的是，preg_replace_callback()函数使用一个回调函数来代替replacement参数。</p>
+<pre><code>mixed preg_callback(mixed pattern,callback callback,mixed subject[,int limit])</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-preg-split-函数"><a href="#nbsp-nbsp-nbsp-nbsp-preg-split-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;preg_split()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;preg_split()函数</h4><p>&nbsp;&nbsp;使用表达式pattern来分割subject。如果有参数limit，数组最多有limit个元素。</p>
+<pre><code>array preg_split(string pattern,string subject[,int limit])</code></pre><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="nbsp-nbsp-声明数组"><a href="#nbsp-nbsp-声明数组" class="headerlink" title="&nbsp;&nbsp;声明数组"></a>&nbsp;&nbsp;声明数组</h3><p>&nbsp;&nbsp;主要有两种声明方式，一种是array()函数，另一种是通过为数组元素赋值的方式声明数组。</p>
+<pre><code>array array([mixed,...])
+mixed 的语法为key =&gt; value,多个参数mixed间用逗号隔开，分别定义了索引和值
+
+定义数组：
+    $array = array(&quot;asp&quot;,&quot;php&quot;,&quot;jsp&quot;)；
+或：
+    $array = array(&quot;1&quot;=&gt;&quot;asp&quot;,&quot;2&quot;=&gt;&quot;php&quot;);
+还可以:
+    $array[1]=&quot;asp&quot;;
+    $array[2]=&quot;php&quot;;
+
+
+输出下标元素:
+    echo $array[1];（单个）
+或
+    print_r($array)；（所有）</code></pre><p>&nbsp;</p>
+<h3 id="nbsp-nbsp-数组的类型"><a href="#nbsp-nbsp-数组的类型" class="headerlink" title="&nbsp;&nbsp;数组的类型"></a>&nbsp;&nbsp;数组的类型</h3><p>&nbsp;&nbsp;PHP支持两种数组，索引数组（indexed array）和联合数组（associative array）。</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-数字索引数组"><a href="#nbsp-nbsp-nbsp-nbsp-数字索引数组" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;数字索引数组"></a>&nbsp;&nbsp;&nbsp;&nbsp;数字索引数组</h4><p>&nbsp;&nbsp;数字索引一般表示数组元素在数组中的位置，由数字组成，下标从0开始</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-关联数组"><a href="#nbsp-nbsp-nbsp-nbsp-关联数组" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;关联数组"></a>&nbsp;&nbsp;&nbsp;&nbsp;关联数组</h4><p>&nbsp;&nbsp;关联数组的键名可以是数值和字符串混合的形式，只要有一个键名不是数字，那么就是关联数组。（就是将diy键名）</p>
+<h3 id="nbsp-nbsp-输出数组"><a href="#nbsp-nbsp-输出数组" class="headerlink" title="&nbsp;&nbsp;输出数组"></a>&nbsp;&nbsp;输出数组</h3><p>&nbsp;&nbsp;输出数组可以使用echo、print语句，但是只能对数组的某元素进行输出，print_r()则可以输出数组结构。</p>
+<pre><code>bool print_r(mixed expression)</code></pre><h3 id="nbsp-nbsp-数组构造"><a href="#nbsp-nbsp-数组构造" class="headerlink" title="&nbsp;&nbsp;数组构造"></a>&nbsp;&nbsp;数组构造</h3><h4 id="nbsp-nbsp-nbsp-nbsp-一维数组"><a href="#nbsp-nbsp-nbsp-nbsp-一维数组" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;一维数组"></a>&nbsp;&nbsp;&nbsp;&nbsp;一维数组</h4><p>&nbsp;&nbsp;当一个数组的元素是变量时，称为一维数组。</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-二维数组"><a href="#nbsp-nbsp-nbsp-nbsp-二维数组" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;二维数组"></a>&nbsp;&nbsp;&nbsp;&nbsp;二维数组</h4><p>&nbsp;&nbsp;当一个数组的元素一维数组（套娃），则称为二维数组。</p>
+<h3 id="nbsp-nbsp-遍历数组"><a href="#nbsp-nbsp-遍历数组" class="headerlink" title="&nbsp;&nbsp;遍历数组"></a>&nbsp;&nbsp;遍历数组</h3><h4 id="nbsp-nbsp-nbsp-nbsp-foreach结构遍历"><a href="#nbsp-nbsp-nbsp-nbsp-foreach结构遍历" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;foreach结构遍历"></a>&nbsp;&nbsp;&nbsp;&nbsp;foreach结构遍历</h4><p>&nbsp;&nbsp;如上</p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-list-函数遍历"><a href="#nbsp-nbsp-nbsp-nbsp-list-函数遍历" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;list()函数遍历"></a>&nbsp;&nbsp;&nbsp;&nbsp;list()函数遍历</h4><p>&nbsp;&nbsp;把数组中的值赋给一些变量</p>
+<pre><code>void list(mixed ...)</code></pre>
             </article>
             <hr>
             <div>
@@ -497,9 +524,9 @@ x    忽略空白字符        写法 如上</code></pre><p>&nbsp;</p>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                    
                       <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 
