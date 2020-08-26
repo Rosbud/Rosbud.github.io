@@ -205,45 +205,44 @@
             
             <article class="markdown-body">
               <h2 id="收集本机信息"><a href="#收集本机信息" class="headerlink" title="收集本机信息"></a>收集本机信息</h2><h3 id="nbsp-nbsp-手动收集"><a href="#nbsp-nbsp-手动收集" class="headerlink" title="&nbsp;&nbsp;手动收集"></a>&nbsp;&nbsp;手动收集</h3><h4 id="nbsp-nbsp-nbsp-nbsp-查询操作系统和版本信息"><a href="#nbsp-nbsp-nbsp-nbsp-查询操作系统和版本信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询操作系统和版本信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询操作系统和版本信息</h4><pre><code>systeminfo | findstr /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;
-systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A21.png" srcset="/img/loading.gif" alt=""></p>
+systeminfo | findstr /B /C:&quot;OS 名称&quot; /C:&quot;OS 版本&quot;</code></pre><p><img src="https://i.loli.net/2020/08/26/VTpqd8njIeClOZc.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;在中文系统中时候后面的命令才有显示</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查看系统体系结构"><a href="#nbsp-nbsp-nbsp-nbsp-查看系统体系结构" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看系统体系结构"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看系统体系结构</h4><pre><code>echo %PROCESSOR_ARCHITECTURE%</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A22.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查看安装的软件及版本、路径等"><a href="#nbsp-nbsp-nbsp-nbsp-查看安装的软件及版本、路径等" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看安装的软件及版本、路径等"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看安装的软件及版本、路径等</h4><pre><code>wmic product get name,version</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A23.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-使用powershell命令，搜集软件的版本信息"><a href="#nbsp-nbsp-nbsp-nbsp-使用powershell命令，搜集软件的版本信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;使用powershell命令，搜集软件的版本信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;使用powershell命令，搜集软件的版本信息</h4><pre><code>powershell &quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&quot;</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A24.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询本机服务信息"><a href="#nbsp-nbsp-nbsp-nbsp-查询本机服务信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询本机服务信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询本机服务信息</h4><pre><code>wmic service list brief</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A25.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询进程列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询进程列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询进程列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询进程列表</h4><pre><code>tasklist</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A26.png" srcset="/img/loading.gif" alt=""></p>
-<p>&nbsp;&nbsp;查看当前进程列表和进程用户、分析软件、邮件客户端、vpn和杀毒软件等进程</p>
-<pre><code>wmic process list brief</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A27.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查看启动程序信息"><a href="#nbsp-nbsp-nbsp-nbsp-查看启动程序信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看启动程序信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看启动程序信息</h4><pre><code>wmic startup get command,caption</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A28.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查看系统体系结构"><a href="#nbsp-nbsp-nbsp-nbsp-查看系统体系结构" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看系统体系结构"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看系统体系结构</h4><pre><code>echo %PROCESSOR_ARCHITECTURE%</code></pre><p><img src="https://i.loli.net/2020/08/26/LMDsCWP5zKcUk4b.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查看安装的软件及版本、路径等"><a href="#nbsp-nbsp-nbsp-nbsp-查看安装的软件及版本、路径等" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看安装的软件及版本、路径等"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看安装的软件及版本、路径等</h4><pre><code>wmic product get name,version</code></pre><p><img src="https://i.loli.net/2020/08/26/xDgosX9hrtf3zkY.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-使用powershell命令，搜集软件的版本信息"><a href="#nbsp-nbsp-nbsp-nbsp-使用powershell命令，搜集软件的版本信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;使用powershell命令，搜集软件的版本信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;使用powershell命令，搜集软件的版本信息</h4><pre><code>powershell &quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&quot;</code></pre><p><img src="https://i.loli.net/2020/08/26/phWzbNcPkOCBsJ3.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询本机服务信息"><a href="#nbsp-nbsp-nbsp-nbsp-查询本机服务信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询本机服务信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询本机服务信息</h4><pre><code>wmic service list brief</code></pre><p><img src="https://i.loli.net/2020/08/26/1hnilNuesK4DpOv.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询进程列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询进程列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询进程列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询进程列表</h4><pre><code>tasklist</code></pre><p>&nbsp;&nbsp;查看当前进程列表和进程用户、分析软件、邮件客户端、vpn和杀毒软件等进程</p>
+<pre><code>wmic process list brief</code></pre><p><img src="https://i.loli.net/2020/08/26/61nK2UEVB9bANRF.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查看启动程序信息"><a href="#nbsp-nbsp-nbsp-nbsp-查看启动程序信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看启动程序信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看启动程序信息</h4><pre><code>wmic startup get command,caption</code></pre><p><img src="https://i.loli.net/2020/08/26/eocD6f8swNOU5b1.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-查看计划任务"><a href="#nbsp-nbsp-nbsp-nbsp-查看计划任务" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看计划任务"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看计划任务</h4><pre><code>chcp 437   将文字转化为英文显示
-schtasks /query /fo LIST /v</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A29.png" srcset="/img/loading.gif" alt=""></p>
+schtasks /query /fo LIST /v</code></pre><p><img src="https://i.loli.net/2020/08/26/z6mDnZSYbouh4MT.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;若直接使用schasks命令则会出现提示列资源无法加载</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查看主机开机时间"><a href="#nbsp-nbsp-nbsp-nbsp-查看主机开机时间" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看主机开机时间"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看主机开机时间</h4><pre><code>net statistics workstation</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A210.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询用户列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询用户列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询用户列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询用户列表</h4><pre><code>net user</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A211.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查看主机开机时间"><a href="#nbsp-nbsp-nbsp-nbsp-查看主机开机时间" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看主机开机时间"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看主机开机时间</h4><pre><code>net statistics workstation</code></pre><p><img src="https://i.loli.net/2020/08/26/LWj3nag1cG4TS6H.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询用户列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询用户列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询用户列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询用户列表</h4><pre><code>net user</code></pre><p><img src="https://i.loli.net/2020/08/26/rhC5WvpJVEkNa4l.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;通过分析本机用户列表，可以找出内网机器的命名规则，用来推测整个域的用户命名方式。</p>
 <p>&nbsp;&nbsp;获取本地管理员信息</p>
-<pre><code>net localgroup administrators</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A212.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>net localgroup administrators</code></pre><p><img src="https://i.loli.net/2020/08/26/MR8DbGXHLEtOuys.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;查看当前在线用户</p>
-<pre><code>query user || qwinsta</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A213.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-列出或断开本地计算机与所连接的客户端之间的会话"><a href="#nbsp-nbsp-nbsp-nbsp-列出或断开本地计算机与所连接的客户端之间的会话" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;列出或断开本地计算机与所连接的客户端之间的会话"></a>&nbsp;&nbsp;&nbsp;&nbsp;列出或断开本地计算机与所连接的客户端之间的会话</h4><pre><code>net session</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A214.png" srcset="/img/loading.gif" alt=""></p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询端口列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询端口列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询端口列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询端口列表</h4><pre><code>netstat -ano</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A215.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>query user || qwinsta</code></pre><p><img src="https://i.loli.net/2020/08/26/1TfbJtosx6U5GXr.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-列出或断开本地计算机与所连接的客户端之间的会话"><a href="#nbsp-nbsp-nbsp-nbsp-列出或断开本地计算机与所连接的客户端之间的会话" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;列出或断开本地计算机与所连接的客户端之间的会话"></a>&nbsp;&nbsp;&nbsp;&nbsp;列出或断开本地计算机与所连接的客户端之间的会话</h4><pre><code>net session</code></pre><p><img src="https://i.loli.net/2020/08/26/ZmVJ3KM9FHdNUAX.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询端口列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询端口列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询端口列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询端口列表</h4><pre><code>netstat -ano</code></pre><p><img src="https://i.loli.net/2020/08/26/zsA3dVIHulQ2Z1y.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;此时可以看到当前机器和哪些主机建立了连接，以及TCP、UDP等端口的使用和监听情况。</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询补丁信息"><a href="#nbsp-nbsp-nbsp-nbsp-查询补丁信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询补丁信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询补丁信息</h4><pre><code>systeminfo</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A216.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询补丁信息"><a href="#nbsp-nbsp-nbsp-nbsp-查询补丁信息" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询补丁信息"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询补丁信息</h4><pre><code>systeminfo</code></pre><p><img src="https://i.loli.net/2020/08/26/4C6fqSpA1hm7Dcw.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;需要注意系统的版本、补丁信息和更新频率</p>
-<pre><code>wmic qfe get Caption,Description,HotFixID,InstalledOn</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A217.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>wmic qfe get Caption,Description,HotFixID,InstalledOn</code></pre><p><img src="https://i.loli.net/2020/08/26/gxkprnvOQYfXwZH.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;补丁的名称、描述、ID等</p>
-<h4 id="nbsp-nbsp-nbsp-nbsp-查询本机共享列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询本机共享列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询本机共享列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询本机共享列表</h4><pre><code>net share</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A218.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-nbsp-nbsp-查询本机共享列表"><a href="#nbsp-nbsp-nbsp-nbsp-查询本机共享列表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询本机共享列表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询本机共享列表</h4><pre><code>net share</code></pre><p><img src="https://i.loli.net/2020/08/26/zFEX7ToHqhO8vge.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;查看本机共享列表和可访问的域共享列表</p>
-<pre><code>wmic share get name,path,status</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A219.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>wmic share get name,path,status</code></pre><p><img src="https://i.loli.net/2020/08/26/oumsYMgqSDCVftz.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-查询路由表及所有可用接口的ARP缓冲表"><a href="#nbsp-nbsp-nbsp-nbsp-查询路由表及所有可用接口的ARP缓冲表" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询路由表及所有可用接口的ARP缓冲表"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询路由表及所有可用接口的ARP缓冲表</h4><pre><code>route print
-arp -a</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A220.png" srcset="/img/loading.gif" alt=""></p>
+arp -a</code></pre><p><img src="https://i.loli.net/2020/08/26/StEeGpB5PxHnuOJ.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-查询防火墙相关配置"><a href="#nbsp-nbsp-nbsp-nbsp-查询防火墙相关配置" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询防火墙相关配置"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询防火墙相关配置</h4><p>&nbsp;&nbsp;（1）关闭防火墙</p>
 <pre><code>win 2003及之前的版本用这条命令：
 netsh firewall set opmode disable
 
 win 2003之后的版本用这条命令：
 netsh advfirewall set allprofiles state off</code></pre><p>&nbsp;&nbsp;（2）查看防火墙配置</p>
-<pre><code>netsh firewall show config</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A221.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>netsh firewall show config</code></pre><p><img src="https://i.loli.net/2020/08/26/tClHTzeQuJOvYNA.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;（3）修改防火墙配置</p>
 <pre><code>win 2003及之前的版本，运行指定程序全部连接：
 netsh firewall add allowedprogram c:\nc.exe &quot;allow nc&quot; enable
@@ -258,10 +257,10 @@ netsh advfirewall firewall add rule name=&quot;Allow nc&quot; dir=out action=all
 netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow
 
 自定义防火墙日志储存位置
-netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-查看代理配置情况"><a href="#nbsp-nbsp-nbsp-nbsp-查看代理配置情况" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看代理配置情况"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看代理配置情况</h4><pre><code>reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A222.png" srcset="/img/loading.gif" alt=""></p>
+netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-查看代理配置情况"><a href="#nbsp-nbsp-nbsp-nbsp-查看代理配置情况" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查看代理配置情况"></a>&nbsp;&nbsp;&nbsp;&nbsp;查看代理配置情况</h4><pre><code>reg query &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</code></pre><p><img src="https://i.loli.net/2020/08/26/JMcWiNFzK3pHsP1.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;可以看到服务器1080端口配置信息</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-查询并开启远程连接服务"><a href="#nbsp-nbsp-nbsp-nbsp-查询并开启远程连接服务" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;查询并开启远程连接服务"></a>&nbsp;&nbsp;&nbsp;&nbsp;查询并开启远程连接服务</h4><p>&nbsp;&nbsp;（1）查看远程连接端口</p>
-<pre><code>REG QUERY &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A223.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>REG QUERY &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /V PortNumber</code></pre><p><img src="https://i.loli.net/2020/08/26/L7nrAVemwbCM2Fp.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;在cmd下使用注册表查询语句，得到连接端口为0xd3d，转换后为3389</p>
 <p>&nbsp;&nbsp;（2）在 Windows Server 2003 中开启 3389 端口</p>
 <pre><code>wmic path win32_terminalservicesetting where (__CLASS !=&quot;&quot;)  call setallowtsconnections 1</code></pre><p>&nbsp;&nbsp;（3）在Windows Server 2008和Windows Server 2012中开启3389端口</p>
@@ -270,28 +269,28 @@ netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.l
 wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName=&apos;RDP-Tcp&apos;) call setuserauthenticationrequired 1
 
 reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DWORD /d 0 /f</code></pre><h3 id="nbsp-nbsp-自动收集信息"><a href="#nbsp-nbsp-自动收集信息" class="headerlink" title="&nbsp;&nbsp;自动收集信息"></a>&nbsp;&nbsp;自动收集信息</h3><p>&nbsp;&nbsp;使用WMIC自动脚本来收集信息,打开运行wmic_info.bat会自动生成一个 out.html文件</p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9F%A5%E8%AF%A224.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/VXC2J43ATSxNuit.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;同样也可以使用工具 <strong>Empire</strong> </p>
 <pre><code>git clone https://github.com/EmpireProject/Empire.git</code></pre><h2 id="查询当前权限"><a href="#查询当前权限" class="headerlink" title="查询当前权限"></a>查询当前权限</h2><h3 id="nbsp-nbsp-查看当前权限"><a href="#nbsp-nbsp-查看当前权限" class="headerlink" title="&nbsp;&nbsp;查看当前权限"></a>&nbsp;&nbsp;查看当前权限</h3><p>&nbsp;&nbsp;查看当前权限</p>
 <pre><code>whoami</code></pre><p>&nbsp;&nbsp;获取当前主机权限后，有三种情况：①本地普通用户，②本地管理员用户，③域内用户</p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%901.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/ecAXm3BzrDR2WKj.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;在以上三种情况下，如果当前内网中存在域，那么本地普通用户只能查询本机相关信息，不能查询域内信息；而本地管理员用户和域内用户可以查询域内信息。其原理是：域内的所有查询都是通过域控制器实现的（基于LDAP协议），而这个查询需要经过权限认证，所以只有域用户才拥有这个权限；当域用户执行查询命令时，会自动使用kerberos协议进行认证，无须额外输入账号密码。</p>
-<h3 id="nbsp-nbsp-获取域ID"><a href="#nbsp-nbsp-获取域ID" class="headerlink" title="&nbsp;&nbsp;获取域ID"></a>&nbsp;&nbsp;获取域ID</h3><pre><code>whoami /all</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%902.png" srcset="/img/loading.gif" alt=""></p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%903.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="nbsp-nbsp-查询指定用户的详细信息"><a href="#nbsp-nbsp-查询指定用户的详细信息" class="headerlink" title="&nbsp;&nbsp;查询指定用户的详细信息"></a>&nbsp;&nbsp;查询指定用户的详细信息</h3><pre><code>net user xxx /domain</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%907.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="判断是否存在域"><a href="#判断是否存在域" class="headerlink" title="判断是否存在域"></a>判断是否存在域</h2><h3 id="nbsp-nbsp-ipconfig命令"><a href="#nbsp-nbsp-ipconfig命令" class="headerlink" title="&nbsp;&nbsp;ipconfig命令"></a>&nbsp;&nbsp;ipconfig命令</h3><pre><code>ipconfig /all</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%90.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-获取域ID"><a href="#nbsp-nbsp-获取域ID" class="headerlink" title="&nbsp;&nbsp;获取域ID"></a>&nbsp;&nbsp;获取域ID</h3><pre><code>whoami /all</code></pre><p><img src="https://i.loli.net/2020/08/26/msOIot56kap7bYW.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/bZSQcwMpu71ziEO.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-查询指定用户的详细信息"><a href="#nbsp-nbsp-查询指定用户的详细信息" class="headerlink" title="&nbsp;&nbsp;查询指定用户的详细信息"></a>&nbsp;&nbsp;查询指定用户的详细信息</h3><pre><code>net user xxx /domain</code></pre><p><img src="https://i.loli.net/2020/08/26/YrgDnVzLUs7XJNW.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="判断是否存在域"><a href="#判断是否存在域" class="headerlink" title="判断是否存在域"></a>判断是否存在域</h2><h3 id="nbsp-nbsp-ipconfig命令"><a href="#nbsp-nbsp-ipconfig命令" class="headerlink" title="&nbsp;&nbsp;ipconfig命令"></a>&nbsp;&nbsp;ipconfig命令</h3><pre><code>ipconfig /all</code></pre><p><img src="https://i.loli.net/2020/08/26/nKXepwF9z4JaUbV.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后通过反向解析查询命令nslookup来解析域名的IP地址。再用解析的IP地址与IP地址比较来判断域控制器和DNS服务器是否在同一台服务器上。</p>
-<pre><code>nslookup hack.testlab</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%904.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="nbsp-nbsp-查看系统详细信息"><a href="#nbsp-nbsp-查看系统详细信息" class="headerlink" title="&nbsp;&nbsp;查看系统详细信息"></a>&nbsp;&nbsp;查看系统详细信息</h3><pre><code>systeminfo</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%905.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>nslookup hack.testlab</code></pre><p><img src="https://i.loli.net/2020/08/26/MKIPDaw5Ezdbxuc.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-查看系统详细信息"><a href="#nbsp-nbsp-查看系统详细信息" class="headerlink" title="&nbsp;&nbsp;查看系统详细信息"></a>&nbsp;&nbsp;查看系统详细信息</h3><pre><code>systeminfo</code></pre><p><img src="https://i.loli.net/2020/08/26/m6EqiIuM8VYRKA9.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;域显示就是域名，登录服务器就是域控制器。若域为WORKGROUP表示不在服务器。</p>
-<h3 id="nbsp-nbsp-查询当前登录域及登录用户信息"><a href="#nbsp-nbsp-查询当前登录域及登录用户信息" class="headerlink" title="&nbsp;&nbsp;查询当前登录域及登录用户信息"></a>&nbsp;&nbsp;查询当前登录域及登录用户信息</h3><pre><code>net config workstation</code></pre><p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%906.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-查询当前登录域及登录用户信息"><a href="#nbsp-nbsp-查询当前登录域及登录用户信息" class="headerlink" title="&nbsp;&nbsp;查询当前登录域及登录用户信息"></a>&nbsp;&nbsp;查询当前登录域及登录用户信息</h3><pre><code>net config workstation</code></pre><p><img src="https://i.loli.net/2020/08/26/5yBr7G6QliqUSOe.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="nbsp-nbsp-判断主域"><a href="#nbsp-nbsp-判断主域" class="headerlink" title="&nbsp;&nbsp;判断主域"></a>&nbsp;&nbsp;判断主域</h3><p>&nbsp;&nbsp;域服务器通常会同时作为时间服务器使用</p>
 <p>&nbsp;&nbsp;有三种情况，第一种中存在域，当前是域用户：</p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%908.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/l3mOiwH6IjxRT7g.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;第二种是，不存在域，环境是工作组：</p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%909.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/lfQmMCK438ZzFPb.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;第三种是，存在域，但是当前用户不是域用户</p>
-<p><img src="/%5Cimg%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%5C%E6%9D%83%E9%99%9010.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/znqxPvcFw1jprXo.png" srcset="/img/loading.gif" alt=""></p>
 
             </article>
             <hr>
@@ -309,9 +308,9 @@ reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fS
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 

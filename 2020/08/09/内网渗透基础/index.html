@@ -262,12 +262,12 @@ Schema Admins（架构管理员组）
 Domain Users（域用户组）</code></pre><p>&nbsp;</p>
 <h2 id="PowerShell基础"><a href="#PowerShell基础" class="headerlink" title="PowerShell基础"></a>PowerShell基础</h2><p>&nbsp;&nbsp;PowerShell是一种命令行外壳程序和脚本环境，内置于每个受支持的Windows版本中，可以看作cmd的拓展。</p>
 <p>&nbsp;&nbsp;winser12可直接打开</p>
-<p><img src="/img/powershell1.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/i7tcxwW59TE4DXC.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;输入 <strong>Get-Host</strong> 或 <strong>$PSversionTable.PSVersion</strong> 可以查看版本</p>
 <h3 id="nbsp-nbsp-PowerShell基本概念"><a href="#nbsp-nbsp-PowerShell基本概念" class="headerlink" title="&nbsp;&nbsp;PowerShell基本概念"></a>&nbsp;&nbsp;PowerShell基本概念</h3><h4 id="nbsp-amp-nbsp-nbsp-nbsp-ps1文件"><a href="#nbsp-amp-nbsp-nbsp-nbsp-ps1文件" class="headerlink" title="&nbsp;&amp;nbsp&nbsp;&nbsp;;.ps1文件"></a>&nbsp;&amp;nbsp&nbsp;&nbsp;;.ps1文件</h4><p>&nbsp;&nbsp;PowerShell就是简单的文本文件，拓展名为 <strong>.ps1</strong> </p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-执行策略"><a href="#nbsp-nbsp-nbsp-nbsp-执行策略" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;执行策略"></a>&nbsp;&nbsp;&nbsp;&nbsp;执行策略</h4><p>&nbsp;&nbsp;为防止使用者恶意运行脚本，PowerShell提供的默认策略是：不能运行</p>
 <p>&nbsp;&nbsp;如果脚本不能运行，可以使用 <strong>Get-ExecutionPolicy</strong> 来查询当前的执行策略</p>
-<p><img src="/img/powershell2.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/te5RBzcpTKxIAQy.png" srcset="/img/loading.gif" alt=""></p>
 <pre><code>Restricted：脚本不能运行
 RemoteSigned：在本地创建的脚本可以运行，网上下载的不可（有数字证书也可）
 ALLSigned：仅当脚本由受信任的发布者签名时才能运行
@@ -284,36 +284,36 @@ Unrestricted：允许所有脚本运行</code></pre><p>&nbsp;<br>&nbsp;&nbsp;也
 6、追加内容：Add-Content light.txt-Value &apos;&apos;i love you &apos;&apos;。
 7、清除内容：Clear-Content test.txt。</code></pre><p>&nbsp;</p>
 <h2 id="VMware域环境配置"><a href="#VMware域环境配置" class="headerlink" title="VMware域环境配置"></a>VMware域环境配置</h2><h3 id="nbsp-nbsp-基本配置"><a href="#nbsp-nbsp-基本配置" class="headerlink" title="&nbsp;&nbsp;基本配置"></a>&nbsp;&nbsp;基本配置</h3><p>&nbsp;&nbsp;首先对虚拟机进行配置自定义网络</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cp1.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/cCwFXyEeY1brlON.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;这里新建了一个VMnet2作为域专用地址，可以通过设置子网IP和DHCP分配的地址来进行对虚拟机进行分配，不过不能设置网关，需要虚拟机单独去配置（基本DHCP就没什么用了）</p>
 <p>&nbsp;&nbsp;这里使用了三台测试机，分别为WinSer2012作为网关和DNS的地址，WinSer08和一台win7作为域内其他主机。</p>
 <p>&nbsp;&nbsp;对每台设备进行关闭防火墙和IP地址配置，让三台主机都互相能够ping通</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cip.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/xLYEeNC5KShHcPO.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后对WinSer2012进行改名，改为DC</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cgaiming.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/9yMndFmbaLixCVE.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;重启Winser2012后，对该服务器进行配置。进行添加DNS和AD域服务。</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Ctianjia.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/1owfePdLJ7nsZxN.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后默认点击下一步然后安装。</p>
 <p>&nbsp;&nbsp;点击出现的黄色感叹。</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxiangdao.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/BaeUuYgm8pxMFih.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;按照要求配置根域名</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxinlin.png" srcset="/img/loading.gif" alt=""></p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cxinlin2.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/uhTwoSIlRPn9mqY.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/kLlzoutVvWRNxMq.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后一直默认下一步，直到安装完成，重启</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad1.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/tr7l46c5QeN3RpA.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;接下来对AD添加用户</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad2.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/d5qZz9DxU37uskP.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;选择用户和计算机</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cad3.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/8uRsXdKrZkh1DYB.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后创建用户名和密码</p>
 <h3 id="nbsp-nbsp-加入域"><a href="#nbsp-nbsp-加入域" class="headerlink" title="&nbsp;&nbsp;加入域"></a>&nbsp;&nbsp;加入域</h3><p>&nbsp;&nbsp;接下来到win7上加入域</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadwin7.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/Yr7nQFTGAL14NaZ.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后输入刚刚创建的用户密码</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadwin72.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/eB7ZydLADitqxWY.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;显示成功加入域</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadsucceed.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/Y2PxmLHIf8epdvX.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;然后重启成功加入域，同时ping域名</p>
-<p><img src="/img%5C%E5%86%85%E7%BD%91%E6%94%BB%E9%98%B2%5C%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%5Cadping.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://i.loli.net/2020/08/26/ymrURbohw3PZAV2.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;到此，完成了创建域和加入域的操作</p>
 
             </article>
@@ -332,9 +332,9 @@ Unrestricted：允许所有脚本运行</code></pre><p>&nbsp;<br>&nbsp;&nbsp;也
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 
