@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      324 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -204,7 +204,27 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              
+              <h2 id="简介和安装"><a href="#简介和安装" class="headerlink" title="简介和安装"></a>简介和安装</h2><p>&nbsp;&nbsp;buggy web Application 这是一个集成了各种常见漏洞和最新漏洞的开源Web应用程序，目的是帮助网络安全爱好者、开发人员和学生发现并防止网络漏洞。包含了超过100种漏洞，涵 盖了所有主要的已知Web漏洞，包括OWASP Top10安全风险，最重要的是已经包含了OpenSSL和ShellShock漏洞。</p>
+<p>&nbsp;&nbsp;本机安装的的是集成docker环境 <a href="https://github.com/c0ny1/vulstudy" target="_blank" rel="noopener">链接</a></p>
+<p>&nbsp;&nbsp;部属docker环境的是虚拟机Ubuntu2020。在clone到的文件夹内使用命令</p>
+<pre><code>sudo docker-compose up -d</code></pre><p>&nbsp;&nbsp;将环境启动，当显示环境全部done时则可以进行访问测试</p>
+<p><img src="https://i.loli.net/2020/08/26/Y39KBqiLbuzZ6po.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;访问bwapp对应的IP地址即可开始进行练习（需要首次访问install.php）</p>
+<p><img src="https://i.loli.net/2020/08/26/rKOe671AlJnvTRx.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;登录的账号bee/bug</p>
+<p><img src="https://i.loli.net/2020/08/26/B2Ho4WudgvkeR7M.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;docker关闭命令</p>
+<pre><code>sudo docker-compose stop </code></pre><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><h3 id="HTML-Injection-Reflected-GET"><a href="#HTML-Injection-Reflected-GET" class="headerlink" title="HTML Injection - Reflected (GET)"></a>HTML Injection - Reflected (GET)</h3><p><img src="https://i.loli.net/2020/08/26/USfY2nzOIlc8Njg.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;正常输入则会下方小字显示</p>
+<p><img src="https://i.loli.net/2020/08/26/75FAjzN8pho3RqZ.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;<strong>low</strong></p>
+<p>&nbsp;&nbsp;网站未对输入内容进行过滤和转义，可以输入各种html的payload</p>
+<pre><code>&lt;h1&gt;hello&lt;h1&gt;</code></pre><p><img src="https://i.loli.net/2020/08/26/qP9QwIdJnlLvZRS.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>&lt;a href=”https://www.baidu.com”&gt;baidu&lt;/a&gt; 也可以</code></pre><p>&nbsp;&nbsp;<strong>medium</strong></p>
+<p>&nbsp;&nbsp;使用low等级的payload已经被转义</p>
+<p><img src="https://i.loli.net/2020/08/26/DFSQu7YXVhkB6wo.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;先对源码进行查看，<a href="https://sourceforge.net/projects/bwapp/files/bWAPP/bWAPPv2.2/" target="_blank" rel="noopener">链接</a></p>
+
             </article>
             <hr>
             <div>
