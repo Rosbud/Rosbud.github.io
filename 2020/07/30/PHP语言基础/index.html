@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.6k 字
+      5.9k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      69
+      72
        分钟
     </span>
   
@@ -507,7 +507,15 @@ mixed 的语法为key =&gt; value,多个参数mixed间用逗号隔开，分别�
 <h4 id="nbsp-nbsp-nbsp-nbsp-二维数组"><a href="#nbsp-nbsp-nbsp-nbsp-二维数组" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;二维数组"></a>&nbsp;&nbsp;&nbsp;&nbsp;二维数组</h4><p>&nbsp;&nbsp;当一个数组的元素一维数组（套娃），则称为二维数组。</p>
 <h3 id="nbsp-nbsp-遍历数组"><a href="#nbsp-nbsp-遍历数组" class="headerlink" title="&nbsp;&nbsp;遍历数组"></a>&nbsp;&nbsp;遍历数组</h3><h4 id="nbsp-nbsp-nbsp-nbsp-foreach结构遍历"><a href="#nbsp-nbsp-nbsp-nbsp-foreach结构遍历" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;foreach结构遍历"></a>&nbsp;&nbsp;&nbsp;&nbsp;foreach结构遍历</h4><p>&nbsp;&nbsp;如上</p>
 <h4 id="nbsp-nbsp-nbsp-nbsp-list-函数遍历"><a href="#nbsp-nbsp-nbsp-nbsp-list-函数遍历" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;list()函数遍历"></a>&nbsp;&nbsp;&nbsp;&nbsp;list()函数遍历</h4><p>&nbsp;&nbsp;把数组中的值赋给一些变量</p>
-<pre><code>void list(mixed ...)</code></pre>
+<pre><code>void list(mixed ...)
+each()函数用于返回当前指针位置的数组值，并将指针推进一个位置</code></pre><h3 id="nbsp-nbsp-字符串与数组的转换"><a href="#nbsp-nbsp-字符串与数组的转换" class="headerlink" title="&nbsp;&nbsp;字符串与数组的转换"></a>&nbsp;&nbsp;字符串与数组的转换</h3><h4 id="nbsp-nbsp-nbsp-nbsp-explode-函数"><a href="#nbsp-nbsp-nbsp-nbsp-explode-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;explode()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;explode()函数</h4><p>&nbsp;&nbsp;explode()函数将字符串依指定的字符串或字符separator打开</p>
+<pre><code>array explode(string separator,string string,[int limit])
+返回由字符串组成的数组，每个元素都是string的一个子串，她们被字符串separator作为边界点分隔</code></pre><h4 id="nbsp-nbsp-nbsp-nbsp-implode-函数"><a href="#nbsp-nbsp-nbsp-nbsp-implode-函数" class="headerlink" title="&nbsp;&nbsp;&nbsp;&nbsp;implode()函数"></a>&nbsp;&nbsp;&nbsp;&nbsp;implode()函数</h4><p>&nbsp;&nbsp;implode()函数用于将数组的内容合成一个字符串</p>
+<pre><code>string implode(string glue,array pieces)
+glue是字符串类型，指要传入的分隔符。pieces是数组类型，指传入的要合并元素的数组变量名称</code></pre><h3 id="nbsp-nbsp-统计数组元素个数"><a href="#nbsp-nbsp-统计数组元素个数" class="headerlink" title="&nbsp;&nbsp;统计数组元素个数"></a>&nbsp;&nbsp;统计数组元素个数</h3><p>&nbsp;&nbsp;通过count()函数对数组中的元素个数进行统计</p>
+<pre><code>int count(mixed array[,int mode])
+array     必要数组，输入的数组
+mode    可选数组，COUNT_RECURSIVE或1，若选中则递归地对数组进行计数，默认为0</code></pre>
             </article>
             <hr>
             <div>

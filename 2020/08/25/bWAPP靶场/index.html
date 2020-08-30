@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      324 字
+      583 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      8
        分钟
     </span>
   
@@ -224,6 +224,54 @@
 <p>&nbsp;&nbsp;使用low等级的payload已经被转义</p>
 <p><img src="https://i.loli.net/2020/08/26/DFSQu7YXVhkB6wo.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;先对源码进行查看，<a href="https://sourceforge.net/projects/bwapp/files/bWAPP/bWAPPv2.2/" target="_blank" rel="noopener">链接</a></p>
+<pre><code> &lt;option value=&quot;0&quot;&gt;low&lt;/option&gt;
+ &lt;option value=&quot;1&quot;&gt;medium&lt;/option&gt;
+ &lt;option value=&quot;2&quot;&gt;high&lt;/option&gt; 
+
+medium等级对应是1
+
+switch($_COOKIE[&quot;security_level&quot;])
+{
+
+    case &quot;0&quot; : 
+
+        $data = no_check($data);            
+        break;
+
+    case &quot;1&quot; :
+
+        $data = xss_check_1($data);
+        break;
+
+    case &quot;2&quot; :            
+
+        $data = xss_check_3($data);            
+        break;
+
+    default : 
+
+        $data = no_check($data);            
+        break;   
+
+} 
+
+可以看到low等级没有对输入字符进行检查，接下来寻找xss_check函数</code></pre><p>&nbsp;&nbsp;通过查看该页面源码查询到xss_check函数包含在  functions_external.php  文件中</p>
+<pre><code>function xss_check_1($data)
+{
+
+// Converts only &quot;&lt;&quot; and &quot;&gt;&quot; to HTLM entities    
+$input = str_replace(&quot;&lt;&quot;, &quot;&amp;lt;&quot;, $data);
+$input = str_replace(&quot;&gt;&quot;, &quot;&amp;gt;&quot;, $input);
+
+$input = urldecode($input);
+
+return $input;
+
+}</code></pre><p>&nbsp;&nbsp;xss_check函数对 左右尖括号用html转义符进行了替换，然后再将转义后的代码用urlencode函数编码再返回。</p>
+<p>&nbsp;&nbsp;这里就可以知道利用urlencode函数进行绕过，预先设置输入</p>
+<pre><code>%3Cscript%3Ealert%280%29%3C%2Fscript%3E
+%3cscript%3ealert%28%27xss%27%29%3c%2fscript%3e
+将符号通过html预先转义来绕过str_repalce函数</code></pre><p><img src="https://i.loli.net/2020/08/30/E3Xz2wNZtBmY8Df.png" srcset="/img/loading.gif" alt=""></p>
 
             </article>
             <hr>
