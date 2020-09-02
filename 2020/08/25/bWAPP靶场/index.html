@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      923 字
+      1.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      17
        分钟
     </span>
   
@@ -214,7 +214,7 @@
 <p>&nbsp;&nbsp;登录的账号bee/bug</p>
 <p><img src="https://i.loli.net/2020/08/26/B2Ho4WudgvkeR7M.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;docker关闭命令</p>
-<pre><code>sudo docker-compose stop </code></pre><h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><h3 id="HTML-Injection-Reflected-GET"><a href="#HTML-Injection-Reflected-GET" class="headerlink" title="HTML Injection - Reflected (GET)"></a>HTML Injection - Reflected (GET)</h3><p><img src="https://i.loli.net/2020/08/26/USfY2nzOIlc8Njg.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>sudo docker-compose stop </code></pre><h2 id="Injection"><a href="#Injection" class="headerlink" title="Injection"></a>Injection</h2><h3 id="HTML-Injection-Reflected-GET"><a href="#HTML-Injection-Reflected-GET" class="headerlink" title="HTML Injection-Reflected (GET)"></a>HTML Injection-Reflected (GET)</h3><p><img src="https://i.loli.net/2020/08/26/USfY2nzOIlc8Njg.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;正常输入则会下方小字显示</p>
 <p><img src="https://i.loli.net/2020/08/26/75FAjzN8pho3RqZ.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="nbsp-nbsp-low"><a href="#nbsp-nbsp-low" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;网站未对输入内容进行过滤和转义，可以输入各种html的payload</p>
@@ -289,7 +289,7 @@ return htmlspecialchars($data, ENT_QUOTES, $encoding);
 <p>&nbsp;&nbsp;查看源码</p>
 <p><img src="https://i.loli.net/2020/09/01/gTmFXI4a7OEeSLk.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;故此时该函数无法绕过</p>
-<h3 id="HTML-Injection-Reflected-POST"><a href="#HTML-Injection-Reflected-POST" class="headerlink" title="HTML Injection - Reflected (POST)"></a>HTML Injection - Reflected (POST)</h3><h4 id="nbsp-nbsp-low-1"><a href="#nbsp-nbsp-low-1" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;先用直接插的payload试试</p>
+<h3 id="HTML-Injection-Reflected-POST"><a href="#HTML-Injection-Reflected-POST" class="headerlink" title="HTML Injection-Reflected (POST)"></a>HTML Injection-Reflected (POST)</h3><h4 id="nbsp-nbsp-low-1"><a href="#nbsp-nbsp-low-1" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;先用直接插的payload试试</p>
 <p><img src="https://i.loli.net/2020/09/01/eqI6lzYycvb479N.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;可以使用</p>
 <p>&nbsp;&nbsp;按照要求在post内提交也可以</p>
@@ -297,17 +297,59 @@ return htmlspecialchars($data, ENT_QUOTES, $encoding);
 <h4 id="nbsp-nbsp-medium-1"><a href="#nbsp-nbsp-medium-1" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;先试试get关的medium的payload，结果也可以。</p>
 <p>&nbsp;&nbsp;看了看源码，使用的函数和get的一样，那payload也一样</p>
 <h4 id="nbsp-nbsp-high-1"><a href="#nbsp-nbsp-high-1" class="headerlink" title="&nbsp;&nbsp;high"></a>&nbsp;&nbsp;<strong>high</strong></h4><p>&nbsp;&nbsp;基本无法绕过但是可以通过修改cookie来改等级，不过这样就没有按照正常思路。</p>
-<h3 id="HTML-Injection-Reflected-URL"><a href="#HTML-Injection-Reflected-URL" class="headerlink" title="HTML Injection - Reflected (URL)"></a>HTML Injection - Reflected (URL)</h3><h4 id="nbsp-nbsp-low-2"><a href="#nbsp-nbsp-low-2" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p><img src="https://i.loli.net/2020/09/01/mIwD3kzx79RAuQn.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="HTML-Injection-Reflected-URL"><a href="#HTML-Injection-Reflected-URL" class="headerlink" title="HTML Injection-Reflected (URL)"></a>HTML Injection-Reflected (URL)</h3><h4 id="nbsp-nbsp-low-2"><a href="#nbsp-nbsp-low-2" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p><img src="https://i.loli.net/2020/09/01/mIwD3kzx79RAuQn.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;可以查看访问的目标服务器的ip的地址和端口</p>
 <p>&nbsp;&nbsp;burpsuite抓包修改host</p>
 <p><img src="https://i.loli.net/2020/09/01/u8vkOUTQzSnhM7q.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;在原始界面可以查看到修改的host</p>
 <p><img src="https://i.loli.net/2020/09/01/mHKwnRFJa9NeykB.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;真正的xss插入点在url后</p>
-<p><img src="https://i.loli.net/2020/09/01/2W6snYFjyEucfPi.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>#&lt;script&gt;alert(&apos;XSS&apos;)&lt;/script&gt;</code></pre><p><img src="https://i.loli.net/2020/09/01/2W6snYFjyEucfPi.png" srcset="/img/loading.gif" alt=""></p>
 <p><img src="https://i.loli.net/2020/09/01/e7EVCDoqlHP3YUX.png" srcset="/img/loading.gif" alt=""></p>
 <p>&nbsp;&nbsp;插入成功，接下来看看源码。</p>
+<pre><code>case &quot;0&quot; :
 
+    $url = &quot;http://&quot; . $_SERVER[&quot;HTTP_HOST&quot;] . $_SERVER[&quot;REQUEST_URI&quot;];               
+    break;</code></pre><p>&nbsp;&nbsp;url变量构造中直接将http包内host和访问的页面输入。故payload将后面的括号注释掉即可通过xss，但是尝试在host中修改不太行。</p>
+<h4 id="nbsp-nbsp-medium-2"><a href="#nbsp-nbsp-medium-2" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;先尝试上一关的payload，host和url都不可改变。看看源码</p>
+<pre><code>case &quot;1&quot; :
+
+   $url = &quot;&lt;script&gt;document.write(document.URL)&lt;/script&gt;&quot;;
+   break;</code></pre><p>&nbsp;&nbsp;现在传入的url是从通过js的document.write函数向客户端进行发送的。看了很多攻略结果发现还绕不过</p>
+<h4 id="nbsp-nbsp-high-2"><a href="#nbsp-nbsp-high-2" class="headerlink" title="&nbsp;&nbsp;high"></a>&nbsp;&nbsp;<strong>high</strong></h4><p>&nbsp;&nbsp;high就直接看源码吧。</p>
+<pre><code>case &quot;2&quot; :
+
+$url = &quot;http://&quot; . $_SERVER[&quot;HTTP_HOST&quot;] . xss_check_3($_SERVER[&quot;REQUEST_URI&quot;]);
+break;</code></pre><p>&nbsp;&nbsp;使用xss_check_3函数对url进行转义。</p>
+<h3 id="HTML-Injection-Stored-Blog"><a href="#HTML-Injection-Stored-Blog" class="headerlink" title="HTML Injection-Stored (Blog)"></a>HTML Injection-Stored (Blog)</h3><h4 id="nbsp-nbsp-low-3"><a href="#nbsp-nbsp-low-3" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p><img src="https://i.loli.net/2020/09/02/widaoITLEmAbOHK.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;通过简单测试估计是个存储型xss。输入普通payload即可</p>
+<p><img src="https://i.loli.net/2020/09/02/3xfWDP7kBg4cI9a.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>case &quot;0&quot; :
+
+    $data = sqli_check_3($link, $data);
+    break;
+
+function sqli_check_3($link, $data)
+{
+
+return mysqli_real_escape_string($link, $data);
+
+}</code></pre><p>&nbsp;&nbsp;mysqli_real_escape_string函数只将 \x00 \n \r \<br>‘ “ \x1a</p>
+<h4 id="nbsp-nbsp-medium-3"><a href="#nbsp-nbsp-medium-3" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;切换到medium就显示被转义</p>
+<p><img src="https://i.loli.net/2020/09/02/aXslhn7KLAOtpSH.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;看看源码 感觉有点奇怪 因为后面都是check_3函数先跳过吧</p>
+<pre><code>case &quot;1&quot; :
+
+        $data = sqli_check_3($link, $data);
+        // $data = xss_check_4($data);
+        break;
+
+case &quot;2&quot; :
+
+        $data = sqli_check_3($link, $data);
+        // $data = xss_check_3($data);
+        break;</code></pre>
             </article>
             <hr>
             <div>
