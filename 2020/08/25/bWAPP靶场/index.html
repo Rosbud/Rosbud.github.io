@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      2.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      32
        分钟
     </span>
   
@@ -349,7 +349,168 @@ case &quot;2&quot; :
 
         $data = sqli_check_3($link, $data);
         // $data = xss_check_3($data);
-        break;</code></pre>
+        break;</code></pre><h3 id="iFrame-Injection"><a href="#iFrame-Injection" class="headerlink" title="iFrame Injection"></a>iFrame Injection</h3><h4 id="nbsp-nbsp-low-4"><a href="#nbsp-nbsp-low-4" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;打开显示了网站的一些基本信息，按照格式应该是robots.txt内容</p>
+<p><img src="https://i.loli.net/2020/09/06/Xejn7KPJTbLzpsh.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>http://192.168.137.129:82/iframei.php?ParamUrl=robots.txt&amp;ParamWidth=250&amp;ParamHeight=250</code></pre><p>&nbsp;&nbsp;对Paramurl后面的参数进行修改可以达到目录遍历的效果</p>
+<pre><code>iframei.php?ParamUrl=admin</code></pre><p><img src="https://i.loli.net/2020/09/06/WbJDwnBLgRA4Qdq.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>unction xss($data)
+{
+
+switch($_COOKIE[&quot;security_level&quot;])
+{
+
+    case &quot;0&quot; :
+
+        $data = no_check($data);      
+        break;
+
+    case &quot;1&quot; :
+
+        $data = xss_check_4($data);
+        break;
+
+    case &quot;2&quot; :
+
+        $data = xss_check_3($data);
+        break;
+
+    default :
+
+        $data = no_check($data);
+        break;   
+
+}</code></pre><p>&nbsp;&nbsp;xss函数只有在level为1，2时使用</p>
+<pre><code>&lt;?php
+
+if($_COOKIE[&quot;security_level&quot;] == &quot;1&quot; || $_COOKIE[&quot;security_level&quot;] == &quot;2&quot;)
+{
+
+?&gt;
+&lt;iframe frameborder=&quot;0&quot; src=&quot;robots.txt&quot; height=&quot;&lt;?php echo xss($_GET[&quot;ParamHeight&quot;])?&gt;&quot; width=&quot;&lt;?php echo xss($_GET[&quot;ParamWidth&quot;])?&gt;&quot;&gt;&lt;/iframe&gt;
+&lt;?php
+
+}
+
+else
+{
+
+?&gt;
+&lt;iframe frameborder=&quot;0&quot; src=&quot;&lt;?php echo xss($_GET[&quot;ParamUrl&quot;])?&gt;&quot; height=&quot;&lt;?php echo xss($_GET[&quot;ParamHeight&quot;])?&gt;&quot; width=&quot;&lt;?php echo xss($_GET[&quot;ParamWidth&quot;])?&gt;&quot;&gt;&lt;/iframe&gt;
+&lt;?php
+
+}
+
+?&gt;</code></pre><p>&nbsp;&nbsp;可以看到在low等级下，直接将输入参数传入</p>
+<h4 id="nbsp-nbsp-medium-4"><a href="#nbsp-nbsp-medium-4" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;通过上面源码发现对url已不可控，而width和height参数未进行处理，考虑从这里闭合标签来进行构造xss语句</p>
+<pre><code>&quot;&gt;&lt;/iframe&gt;&lt;script&gt;alert(/xss/)&lt;/script&gt;&lt;iframe&gt;
+注意这里已经使用addlashes 对引号进行转义</code></pre><p><img src="https://i.loli.net/2020/09/06/aUiqJl21Lz9XmQV.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-high-3"><a href="#nbsp-nbsp-high-3" class="headerlink" title="&nbsp;&nbsp;high"></a>&nbsp;&nbsp;<strong>high</strong></h4><p>&nbsp;&nbsp;通过上面的源码得知high等级对符号都进行了转义 没有闭合的方式</p>
+<h3 id="OS-Command-Injection"><a href="#OS-Command-Injection" class="headerlink" title="OS Command Injection"></a>OS Command Injection</h3><h4 id="nbsp-nbsp-low-5"><a href="#nbsp-nbsp-low-5" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;low等级未做任何过滤在命令后加个管道符或其他即可</p>
+<p><img src="https://i.loli.net/2020/09/06/ezQCKsVwYbMfBNu.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;也可以后面反弹端口等操作</p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>function commandi($data)
+{
+
+switch($_COOKIE[&quot;security_level&quot;])
+{
+
+    case &quot;0&quot; :
+
+        $data = no_check($data);
+        break;
+
+    case &quot;1&quot; :
+
+        $data = commandi_check_1($data);
+        break;
+
+    case &quot;2&quot; :
+
+        $data = commandi_check_2($data);
+        break;
+
+    default :
+
+        $data = no_check($data);
+        break;
+
+}
+
+return $data;
+
+}
+这部分是对输入command进行处理 low等级对输入内容不进行任何处理</code></pre><h4 id="nbsp-nbsp-medium-5"><a href="#nbsp-nbsp-medium-5" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;medium等级只对部分符号进行过滤</p>
+<pre><code>function commandi_check_1($data)
+{
+
+$input = str_replace(&quot;&amp;&quot;, &quot;&quot;, $data);
+$input = str_replace(&quot;;&quot;, &quot;&quot;, $input);
+
+return $input;
+
+}</code></pre><p>&nbsp;&nbsp;可发挥的空间还挺大 这里简单列举一下常用的拼接符号</p>
+<pre><code>|、||、&amp;、&amp;&amp;、${IFS}$、&lt;&gt;（or &lt; 重定向）、%09(php环境)</code></pre><p>&nbsp;&nbsp;也有种情况是对输入内容进行黑名单处理 这时候就可以加入编码对内容进行操作 例如base64</p>
+<h4 id="nbsp-nbsp-high-4"><a href="#nbsp-nbsp-high-4" class="headerlink" title="&nbsp;&nbsp;high"></a>&nbsp;&nbsp;<strong>high</strong></h4><p>&nbsp;&nbsp;这一关对输入命令进行了限制，超过则会将多余的转义</p>
+<pre><code>function commandi_check_2($data)
+{
+
+return escapeshellcmd($data);
+
+}</code></pre><h3 id="OS-Command-Injection-Blind"><a href="#OS-Command-Injection-Blind" class="headerlink" title="OS Command Injection-Blind"></a>OS Command Injection-Blind</h3><p>&nbsp;&nbsp;这一关的和盲注差不多，服务器端对输入的代码只会返回固定的语句</p>
+<p><img src="https://i.loli.net/2020/09/06/Ig1szOxhHBbL6Tm.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;输入规定的ip时，返回时间只有三毫秒</p>
+<p><img src="https://i.loli.net/2020/09/06/vnHh3XC21wrpdiF.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;若命令成功执行则会延迟几秒</p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>&lt;?php
+
+if(isset($_POST[&quot;target&quot;]))
+{
+
+    $target = $_POST[&quot;target&quot;];
+
+    if($target == &quot;&quot;)
+    {
+
+        echo &quot;&lt;font color=\&quot;red\&quot;&gt;Please enter your IP address...&lt;/font&gt;&quot;;
+
+    }
+
+    else
+    {
+
+        echo &quot;Did you captured our GOLDEN packet?&quot;;
+
+        if(PHP_OS == &quot;Windows&quot; or PHP_OS == &quot;WINNT&quot; or PHP_OS == &quot;WIN32&quot;)
+        {
+            shell_exec(&quot;ping -n 1 &quot; . commandi($target));
+
+        }
+
+        else
+        {
+            shell_exec(&quot;ping -c 1 &quot; . commandi($target));
+
+        }
+
+    }
+
+}
+
+?&gt;</code></pre><h3 id="PHP-Code-Injection"><a href="#PHP-Code-Injection" class="headerlink" title="PHP Code Injection"></a>PHP Code Injection</h3><h4 id="nbsp-nbsp-low-6"><a href="#nbsp-nbsp-low-6" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;打开点击加粗的message，下面就跳出message</p>
+<p><img src="https://i.loli.net/2020/09/06/4ZBq6CHIcgdFxJO.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;尝试在url后加入payload</p>
+<pre><code>http://192.168.137.129:82/phpi.php?message=phpinfo()</code></pre><p><img src="https://i.loli.net/2020/09/06/8umRwtcMUyfZ7zl.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>if($_COOKIE[&quot;security_level&quot;] != &quot;1&quot; &amp;&amp; $_COOKIE[&quot;security_level&quot;] != &quot;2&quot;)
+{
+
+&lt;p&gt;&lt;i&gt;&lt;?php @eval (&quot;echo &quot; . $_REQUEST[&quot;message&quot;] . &quot;;&quot;);?&gt;&lt;/i&gt;&lt;/p&gt;
+}</code></pre><p>&nbsp;&nbsp;low等级下不进行过滤</p>
+<h4 id="nbsp-nbsp-medium-6"><a href="#nbsp-nbsp-medium-6" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;medium和high登记下使用同一个</p>
+<pre><code>&lt;?php echo htmlspecialchars($_REQUEST[&quot;message&quot;], ENT_QUOTES, &quot;UTF-8&quot;);;?&gt;</code></pre>
             </article>
             <hr>
             <div>
