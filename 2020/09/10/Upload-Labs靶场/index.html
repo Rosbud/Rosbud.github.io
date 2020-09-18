@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      432 字
+      2.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      32
        分钟
     </span>
   
@@ -235,6 +235,91 @@ if (allow_ext.indexOf(ext_name + &quot;|&quot;) == -1) {
 <h3 id="nbsp-nbsp-Pass-02"><a href="#nbsp-nbsp-Pass-02" class="headerlink" title="&nbsp;&nbsp;Pass-02"></a>&nbsp;&nbsp;Pass-02</h3><p>&nbsp;&nbsp;抓包修改后缀的方式这关也可以实现 不过本关从源码上看是应该考虑content-type的绕过</p>
 <pre><code>if (($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/jpeg&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/png&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/gif&apos;))</code></pre><p>&nbsp;&nbsp;burpsuite抓包修改即可</p>
 <p><img src="https://i.loli.net/2020/09/10/KvrAJ9fsqmUaXjh.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-03"><a href="#nbsp-nbsp-Pass-03" class="headerlink" title="&nbsp;&nbsp;Pass-03"></a>&nbsp;&nbsp;Pass-03</h3><p>&nbsp;&nbsp;本关是对上传的文件后缀进行黑名单处理</p>
+<pre><code>if (file_exists(UPLOAD_PATH)) {
+$deny_ext = array(&apos;.asp&apos;,&apos;.aspx&apos;,&apos;.php&apos;,&apos;.jsp&apos;);
+$file_name = trim($_FILES[&apos;upload_file&apos;][&apos;name&apos;]);
+$file_name = deldot($file_name);//删除文件名末尾的点
+$file_ext = strrchr($file_name, &apos;.&apos;);
+$file_ext = strtolower($file_ext); //转换为小写
+$file_ext = str_ireplace(&apos;::$DATA&apos;, &apos;&apos;, $file_ext);//去除字符串::$DATA
+$file_ext = trim($file_ext); //收尾去空
+
+if(!in_array($file_ext, $deny_ext)) {
+    $temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];
+    $img_path = UPLOAD_PATH.&apos;/&apos;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext; </code></pre><p>&nbsp;&nbsp;通过源码可以了解设置了黑名单对 .jsp .php .asp .aspx ，但没有对 .phtml .phps .php5 .pht 进行过滤，同时还会修改文件名</p>
+<p>&nbsp;&nbsp;要求apache的httpd.conf 包含 AddType application/x-httpd-php .php .phtml .phps .php5 .pht</p>
+<h3 id="nbsp-nbsp-Pass-04"><a href="#nbsp-nbsp-Pass-04" class="headerlink" title="&nbsp;&nbsp;Pass-04"></a>&nbsp;&nbsp;Pass-04</h3><p>&nbsp;&nbsp;这关对黑名单内后缀进行了增加，但未对.htaccess进行过滤</p>
+<pre><code>if (file_exists(UPLOAD_PATH)) {
+    $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;php1&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;pHp1&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;);
+    $file_name = trim($_FILES[&apos;upload_file&apos;][&apos;name&apos;]);</code></pre><p>&nbsp;&nbsp;先上传一个 .htaccess 后缀文件，内容为</p>
+<pre><code>SetHandler application/x-httpd-php //上传的文件就会当作php来解析</code></pre><p>&nbsp;&nbsp;之后将webshell后缀修改为jpg或png上传，接着就能利用了</p>
+<p><img src="https://i.loli.net/2020/09/15/SOBwg736J4PTNMh.png" srcset="/img/loading.gif" alt="">  </p>
+<p>&nbsp;&nbsp;前提条件是需要 1.mod_rewrite模块开启。2.AllowOverride All</p>
+<h3 id="nbsp-nbsp-Pass-05"><a href="#nbsp-nbsp-Pass-05" class="headerlink" title="&nbsp;&nbsp;Pass-05"></a>&nbsp;&nbsp;Pass-05</h3><p>&nbsp;&nbsp;这一关过滤上一关可以使用的 .htaccess 文件</p>
+<pre><code>if (file_exists(UPLOAD_PATH)) {
+    $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;);</code></pre><p>&nbsp;&nbsp;相比上一关过滤的函数少了一个大小写转换函数</p>
+<pre><code>$file_ext = strtolower($file_ext); //转换为小写</code></pre><p><img src="https://i.loli.net/2020/09/15/rJyKkDPfYQCdqgc.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-06"><a href="#nbsp-nbsp-Pass-06" class="headerlink" title="&nbsp;&nbsp;Pass-06"></a>&nbsp;&nbsp;Pass-06</h3><p>&nbsp;&nbsp;相比第四关的减少空格的过滤</p>
+<pre><code> $file_name = deldot($file_name);//删除文件名末尾的点
+ $file_ext = strrchr($file_name, &apos;.&apos;);
+$file_ext = strtolower($file_ext); //转换为小写
+$file_ext = str_ireplace(&apos;::$DATA&apos;, &apos;&apos;, $file_ext);//去除字符串::$DATA
+$file_ext = trim($file_ext); //收尾去空</code></pre><p>&nbsp;&nbsp;少了收尾去空的函数，可以通过增加空格来绕过。若目标机器是Windows系统，默认会删除空格和点</p>
+<p><img src="https://i.loli.net/2020/09/15/QdKDbu3sA2eqZfI.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-07"><a href="#nbsp-nbsp-Pass-07" class="headerlink" title="&nbsp;&nbsp;Pass-07"></a>&nbsp;&nbsp;Pass-07</h3><p>&nbsp;&nbsp;查看源码发现少了过滤点的函数</p>
+<pre><code>if (isset($_POST[&apos;submit&apos;])) {
+if (file_exists(UPLOAD_PATH)) {
+    $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;);
+    $file_name = trim($_FILES[&apos;upload_file&apos;][&apos;name&apos;]);
+    $file_ext = strrchr($file_name, &apos;.&apos;);
+    $file_ext = strtolower($file_ext); //转换为小写
+    $file_ext = str_ireplace(&apos;::$DATA&apos;, &apos;&apos;, $file_ext);//去除字符串::$DATA
+    $file_ext = trim($file_ext); //首尾去空
+    //这是对比pass-04</code></pre><p>&nbsp;&nbsp;少了一个删除末尾点的函数</p>
+<pre><code>$file_name = deldot($file_name);//删除文件名末尾的点</code></pre><p>&nbsp;&nbsp;在文件后增加一个点即可</p>
+<p><img src="https://i.loli.net/2020/09/15/HOmLp1GUfocVSXq.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;同时第六关和第七关内输入多个空格和点在上传时只会被过滤，从源码中也得知只进行一次的删除</p>
+<h3 id="nbsp-nbsp-Pass-08"><a href="#nbsp-nbsp-Pass-08" class="headerlink" title="&nbsp;&nbsp;Pass-08"></a>&nbsp;&nbsp;Pass-08</h3><p>&nbsp;&nbsp;比对过滤函数少了data过滤</p>
+<pre><code>$file_ext = str_ireplace(&apos;::$DATA&apos;, &apos;&apos;, $file_ext);//去除字符串::$DATA</code></pre><p>&nbsp;&nbsp;可以在抓包后增加 ::$DATA 来绕过</p>
+<p><img src="https://i.loli.net/2020/09/15/YmJOCuHndXD6bxT.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;NTFS文件系统包括对备用数据流的支持。这不是众所周知的功能，主要包括提供与Macintosh文件系统中的文件的兼容性。备用数据流允许文件包含多个数据流。每个文件至少有一个数据流。在Windows中，此默认数据流称为： $ DATA 。</p>
+<h3 id="nbsp-nbsp-Pass-09"><a href="#nbsp-nbsp-Pass-09" class="headerlink" title="&nbsp;&nbsp;Pass-09"></a>&nbsp;&nbsp;Pass-09</h3><p>&nbsp;&nbsp;对比前几关的上传部分</p>
+<pre><code>if (!in_array($file_ext, $deny_ext)) {
+        $temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];
+        $img_path = UPLOAD_PATH.&apos;/&apos;.date(&quot;YmdHis&quot;).rand(1000,9999).$file_ext;
+        if (move_uploaded_file($temp_file, $img_path)) {
+            $is_upload = true;
+//前几关的
+
+if (!in_array($file_ext, $deny_ext)) {
+        $temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];
+        $img_path = UPLOAD_PATH.&apos;/&apos;.$file_name;
+        if (move_uploaded_file($temp_file, $img_path)) {
+            $is_upload = true;
+//本关</code></pre><p>&nbsp;&nbsp;本关是对前几个关卡的综合通过后缀添加 . . 来绕过之前的函数</p>
+<p><img src="https://i.loli.net/2020/09/18/xdpYhjE3cbUDKWi.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-10"><a href="#nbsp-nbsp-Pass-10" class="headerlink" title="&nbsp;&nbsp;Pass-10"></a>&nbsp;&nbsp;Pass-10</h3><pre><code>if (file_exists(UPLOAD_PATH)) {
+    $deny_ext = array(&quot;php&quot;,&quot;php5&quot;,&quot;php4&quot;,&quot;php3&quot;,&quot;php2&quot;,&quot;html&quot;,&quot;htm&quot;,&quot;phtml&quot;,&quot;pht&quot;,&quot;jsp&quot;,&quot;jspa&quot;,&quot;jspx&quot;,&quot;jsw&quot;,&quot;jsv&quot;,&quot;jspf&quot;,&quot;jtml&quot;,&quot;asp&quot;,&quot;aspx&quot;,&quot;asa&quot;,&quot;asax&quot;,&quot;ascx&quot;,&quot;ashx&quot;,&quot;asmx&quot;,&quot;cer&quot;,&quot;swf&quot;,&quot;htaccess&quot;);
+
+    $file_name = trim($_FILES[&apos;upload_file&apos;][&apos;name&apos;]);
+    $file_name = str_ireplace($deny_ext,&quot;&quot;, $file_name);
+    $temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];</code></pre><p>&nbsp;&nbsp;这关连之前对点空格的操作都没了，看到是用str_ireplace函数应该通过双写绕过</p>
+<p><img src="https://i.loli.net/2020/09/18/WTMRZv2yK4VN3Sk.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-11"><a href="#nbsp-nbsp-Pass-11" class="headerlink" title="&nbsp;&nbsp;Pass-11"></a>&nbsp;&nbsp;Pass-11</h3><p>&nbsp;&nbsp;本关没有通过黑名单来限制后缀，而是白名单</p>
+<pre><code>f(isset($_POST[&apos;submit&apos;])){
+$ext_arr = array(&apos;jpg&apos;,&apos;png&apos;,&apos;gif&apos;);
+$file_ext = substr($_FILES[&apos;upload_file&apos;][&apos;name&apos;],strrpos($_FILES[&apos;upload_file&apos;][&apos;name&apos;],&quot;.&quot;)+1);
+if(in_array($file_ext,$ext_arr)){
+    $temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];
+    $img_path = $_GET[&apos;save_path&apos;].&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext;</code></pre><p>&nbsp;&nbsp;本关考察的更多是move_uploaded_file函数的利用，由于可控的地方是在http包的<strong>get</strong>传输save_path地方</p>
+<p><img src="https://i.loli.net/2020/09/18/o1wZTJPNHMdfeuF.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;利用move_uploaded_file底层会对 %00 截断的性质，将上传的文件后缀进行可控的修改 </p>
+<p>&nbsp;&nbsp;00截断也是需要条件：1、php版本小于5.3.4 2、php.ini的magic_quotes_gpc为OFF状态</p>
+<h3 id="nbsp-nbsp-Pass-12"><a href="#nbsp-nbsp-Pass-12" class="headerlink" title="&nbsp;&nbsp;Pass-12"></a>&nbsp;&nbsp;Pass-12</h3><p>&nbsp;&nbsp;12关也是对move_uploaded_file的00截断进行考察，但save_path是通过post传参</p>
+<p><img src="https://i.loli.net/2020/09/18/zrwTpFeVsYQ8xtS.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>$img_path = $_POST[&apos;save_path&apos;].&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext;</code></pre><p>&nbsp;&nbsp;所以从二进制数据包角度修改</p>
+<p><img src="https://i.loli.net/2020/09/18/fSOd3ZgaElTzHvr.png" srcset="/img/loading.gif" alt=""></p>
 
             </article>
             <hr>
