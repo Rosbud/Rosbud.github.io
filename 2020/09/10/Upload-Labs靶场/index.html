@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      3.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      46
        分钟
     </span>
   
@@ -229,11 +229,18 @@ if (allow_ext.indexOf(ext_name + &quot;|&quot;) == -1) {
     var errMsg = &quot;该文件不允许上传，请上传&quot; + allow_ext + &quot;类型的文件,当前文件类型为：&quot; + ext_name;
     alert(errMsg);
     return false;
-}</code></pre><p>}</p>
-<p>&nbsp;&nbsp;在客户端的检查同样可以通过在提前将webshell修改成符合标准的后缀 再通过burpsuite改上传后缀即可</p>
+}
+}</code></pre><p>&nbsp;&nbsp;在客户端的检查同样可以通过在提前将webshell修改成符合标准的后缀 再通过burpsuite改上传后缀即可</p>
 <p><img src="https://i.loli.net/2020/09/10/aqbFjBeWrw5EhSO.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="nbsp-nbsp-Pass-02"><a href="#nbsp-nbsp-Pass-02" class="headerlink" title="&nbsp;&nbsp;Pass-02"></a>&nbsp;&nbsp;Pass-02</h3><p>&nbsp;&nbsp;抓包修改后缀的方式这关也可以实现 不过本关从源码上看是应该考虑content-type的绕过</p>
-<pre><code>if (($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/jpeg&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/png&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/gif&apos;))</code></pre><p>&nbsp;&nbsp;burpsuite抓包修改即可</p>
+<pre><code>if (($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/jpeg&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/png&apos;) || ($_FILES[&apos;upload_file&apos;][&apos;type&apos;] == &apos;image/gif&apos;))
+
+
+
+//对一些函数简单说明一下，$_FILES[&apos;myFile&apos;][&apos;name&apos;] 客户端文件的原名称。 
+$_FILES[&apos;myFile&apos;][&apos;type&apos;] 文件的 MIME 类型，需要浏览器提供该信息的支持，例如&quot;image/gif&quot;。 
+$_FILES[&apos;myFile&apos;][&apos;size&apos;] 已上传文件的大小，单位为字节。 
+$_FILES[&apos;myFile&apos;][&apos;tmp_name&apos;] 文件被上传后在服务端储存的临时文件名，一般是系统默认。</code></pre><p>&nbsp;&nbsp;burpsuite抓包修改即可</p>
 <p><img src="https://i.loli.net/2020/09/10/KvrAJ9fsqmUaXjh.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="nbsp-nbsp-Pass-03"><a href="#nbsp-nbsp-Pass-03" class="headerlink" title="&nbsp;&nbsp;Pass-03"></a>&nbsp;&nbsp;Pass-03</h3><p>&nbsp;&nbsp;本关是对上传的文件后缀进行黑名单处理</p>
 <pre><code>if (file_exists(UPLOAD_PATH)) {
@@ -320,6 +327,103 @@ if(in_array($file_ext,$ext_arr)){
 <p><img src="https://i.loli.net/2020/09/18/zrwTpFeVsYQ8xtS.png" srcset="/img/loading.gif" alt=""></p>
 <pre><code>$img_path = $_POST[&apos;save_path&apos;].&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext;</code></pre><p>&nbsp;&nbsp;所以从二进制数据包角度修改</p>
 <p><img src="https://i.loli.net/2020/09/18/fSOd3ZgaElTzHvr.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-13"><a href="#nbsp-nbsp-Pass-13" class="headerlink" title="&nbsp;&nbsp;Pass-13"></a>&nbsp;&nbsp;Pass-13</h3><p>&nbsp;&nbsp;本关是对上传图片的前2个字节进行检查</p>
+<pre><code>function getReailFileType($filename){
+$file = fopen($filename, &quot;rb&quot;);
+$bin = fread($file, 2); //只读2字节
+fclose($file);
+$strInfo = @unpack(&quot;C2chars&quot;, $bin);    
+$typeCode = intval($strInfo[&apos;chars1&apos;].$strInfo[&apos;chars2&apos;]);    
+$fileType = &apos;&apos;;    
+switch($typeCode){      
+    case 255216:            
+        $fileType = &apos;jpg&apos;;
+        break;
+    case 13780:            
+        $fileType = &apos;png&apos;;
+        break;        
+    case 7173:            
+        $fileType = &apos;gif&apos;;
+        break;
+    default:            
+        $fileType = &apos;unknown&apos;;
+    }    
+    return $fileType;
+}</code></pre><p>&nbsp;&nbsp;可以通过cmd合成图片马来绕过</p>
+<pre><code>copy pic.jpg /b + info.php /a webshell.jpg</code></pre><p>&nbsp;&nbsp;再通过文件包含漏洞连接即可</p>
+<pre><code>http://192.168.137.134:8007/include.php?file=./upload/4720200921225554.jpg
+//连接webshell前需要用包含漏洞确实能够输出</code></pre><p><img src="https://i.loli.net/2020/09/23/swjkUlpILtyM7V1.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="nbsp-nbsp-Pass-14"><a href="#nbsp-nbsp-Pass-14" class="headerlink" title="&nbsp;&nbsp;Pass-14"></a>&nbsp;&nbsp;Pass-14</h3><p>&nbsp;&nbsp;本关使用的图片马和13关一样</p>
+<pre><code>function isImage($filename){
+$types = &apos;.jpeg|.png|.gif&apos;;
+if(file_exists($filename)){
+    $info = getimagesize($filename);
+    $ext = image_type_to_extension($info[2]);
+    if(stripos($types,$ext)&gt;=0){
+        return $ext;
+    }else{
+        return false;
+    }
+}else{
+    return false;
+}
+}</code></pre><p>&nbsp;&nbsp;getimagesize函数将测定上传的图片大小并返回文件类型及图片高度与宽度</p>
+<pre><code>getimagesize() 函数返回一个至少具有 4 个元素的数组：
+索引 0 包含图像宽度的像素值。
+索引 1 包含图像高度的像素值。
+索引 2 是图像类型的标记：1=GIF，2=JPG，3=PNG，4=SWF，5=PSD，6=BMP，7=TIFF(intel byte order)，8=TIFF(motorola byte order)，9=JPC，10=JP2，11=PX，12=JB2，13=SWC，14=IFF，15=WBMP，16=XBM。这些标记与 PHP 4.3.0 新加的 IMAGETYPE 常量对应。
+索引 3 是文本字符串，内容为 &quot;height=&quot;yyy&quot;width=&quot;xxx&quot;&quot;，可直接用于 IMG 标记。</code></pre><h3 id="nbsp-nbsp-Pass-15"><a href="#nbsp-nbsp-Pass-15" class="headerlink" title="&nbsp;&nbsp;Pass-15"></a>&nbsp;&nbsp;Pass-15</h3><p>&nbsp;&nbsp;本关可以继续利用之前可以使用的图片马，看看源码</p>
+<pre><code>function isImage($filename){
+//需要开启php_exif模块
+$image_type = exif_imagetype($filename);
+switch ($image_type) {
+    case IMAGETYPE_GIF:
+        return &quot;gif&quot;;
+        break;
+    case IMAGETYPE_JPEG:
+        return &quot;jpg&quot;;
+        break;
+    case IMAGETYPE_PNG:
+        return &quot;png&quot;;
+        break;    
+    default:
+        return false;
+        break;
+}
+}</code></pre><p>&nbsp;&nbsp;exif_imagetype() 读取一个图像的第一个字节并检查其签名。</p>
+<h3 id="nbsp-nbsp-Pass-16"><a href="#nbsp-nbsp-Pass-16" class="headerlink" title="&nbsp;&nbsp;Pass-16"></a>&nbsp;&nbsp;Pass-16</h3><p>&nbsp;&nbsp;本关具体原理和思路看这个<a href="https://xz.aliyun.com/t/2657#toc-13" target="_blank" rel="noopener">文章</a></p>
+<p>&nbsp;&nbsp;具体总结一下：</p>
+<pre><code>gif：通过上传一张范例再下载下来与原图对比，找出未被修改的位置，再此段加入代码
+png：往PLTE数据块写入代码，再脚本计算CRC
+jpg：通过脚本处理
+找到合适的图片更重要</code></pre><h3 id="nbsp-nbsp-Pass-17"><a href="#nbsp-nbsp-Pass-17" class="headerlink" title="&nbsp;&nbsp;Pass-17"></a>&nbsp;&nbsp;Pass-17</h3><p>&nbsp;&nbsp;看看源码</p>
+<pre><code>if(isset($_POST[&apos;submit&apos;])){
+$ext_arr = array(&apos;jpg&apos;,&apos;png&apos;,&apos;gif&apos;);
+$file_name = $_FILES[&apos;upload_file&apos;][&apos;name&apos;];
+$temp_file = $_FILES[&apos;upload_file&apos;][&apos;tmp_name&apos;];
+$file_ext = substr($file_name,strrpos($file_name,&quot;.&quot;)+1);  //获取后缀
+$upload_file = UPLOAD_PATH . &apos;/&apos; . $file_name;
+
+if(move_uploaded_file($temp_file, $upload_file)){
+    if(in_array($file_ext,$ext_arr)){
+         $img_path = UPLOAD_PATH . &apos;/&apos;. rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext;
+         rename($upload_file, $img_path);
+         $is_upload = true;
+    }else{
+        $msg = &quot;只允许上传.jpg|.png|.gif类型文件！&quot;;
+        unlink($upload_file);
+    }
+}else{
+    $msg = &apos;上传出错！&apos;;
+}
+}</code></pre><p>&nbsp;&nbsp;思路在于服务器端检查和删除有一个小的时间间隔，利用这个机会来上传webshell</p>
+<p>&nbsp;&nbsp;这里通过burpsuite的intruder模块，在payload内选择null payloads，payload选项选择continue indefinitely 来进行无限重放</p>
+<p>u19</p>
+<p>&nbsp;&nbsp;另外本地写一个python脚本来检测访问响应码</p>
+<p>&nbsp;&nbsp;不过挺难实现的，跑了挺多包都访问失败</p>
+<h3 id="nbsp-nbsp-Pass-18"><a href="#nbsp-nbsp-Pass-18" class="headerlink" title="&nbsp;&nbsp;Pass-18"></a>&nbsp;&nbsp;Pass-18</h3><p>&nbsp;&nbsp;用之前的图片马也可以使用</p>
+<p>&nbsp;&nbsp;本关也有条件竞争的漏洞，本地不好实现就略过了</p>
+<h3 id="nbsp-nbsp-Pass-19"><a href="#nbsp-nbsp-Pass-19" class="headerlink" title="&nbsp;&nbsp;Pass-19"></a>&nbsp;&nbsp;Pass-19</h3><p>&nbsp;&nbsp;这关类似之前的12关的00截断</p>
 
             </article>
             <hr>

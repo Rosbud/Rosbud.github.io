@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.9k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      35
+      42
        分钟
     </span>
   
@@ -545,7 +545,30 @@ if(isset($_POST[&quot;target&quot;]))
 
 return addslashes($data);
 
-}</code></pre>
+}</code></pre><p>&nbsp;&nbsp;虽然只对输入语句进行一轮addslashes函数，但由于编码问题不能通过宽字节注入</p>
+<h4 id="nbsp-nbsp-high-5"><a href="#nbsp-nbsp-high-5" class="headerlink" title="&nbsp;&nbsp;high"></a>&nbsp;&nbsp;<strong>high</strong></h4><p>&nbsp;&nbsp;high难度使用了 mysql_real_escape_string 函数将特殊字符进行转义</p>
+<h3 id="SQL-Injection-GET-Select"><a href="#SQL-Injection-GET-Select" class="headerlink" title="SQL Injection (GET/Select)"></a>SQL Injection (GET/Select)</h3><h4 id="nbsp-nbsp-low-8"><a href="#nbsp-nbsp-low-8" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;本关是通过参数movie的get方式来传参</p>
+<pre><code>http://192.168.137.134:90/sqli_2.php?movie=1%20and%201=1%20&amp;action=go   //未报错</code></pre><p><img src="https://i.loli.net/2020/10/03/OY3IB8quENdp5Ag.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>http://192.168.137.134:90/sqli_2.php?movie=1%20and%201=2&amp;action=go        //报错</code></pre><p><img src="https://i.loli.net/2020/10/03/xZraYFi4ql5C6JB.png" srcset="/img/loading.gif" alt=""></p>
+<pre><code>http://192.168.137.134:90/sqli_2.php?movie=1%20order%20by%207&amp;action=go  //爆出列</code></pre><h4 id="nbsp-nbsp-medium-and-high"><a href="#nbsp-nbsp-medium-and-high" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h4><p>&nbsp;&nbsp;由于medium采用了和上一关一样的防御，但是本关是整数型注入，所以不起作用，故可以继续使用low的payload</p>
+<h3 id="SQL-Injection-POST-Search"><a href="#SQL-Injection-POST-Search" class="headerlink" title="SQL Injection (POST/Search)"></a>SQL Injection (POST/Search)</h3><h4 id="nbsp-nbsp-low-9"><a href="#nbsp-nbsp-low-9" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;本关在传参时候用了post的方法，通过抓包即可明显观察到</p>
+<p><img src="https://i.loli.net/2020/10/03/lrZonWT6VN7uIjf.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;加上单引号，出现报错</p>
+<p><img src="https://i.loli.net/2020/10/03/pukD2ZTHeo4AXlG.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;观察到有%，所以这次的payload上加上</p>
+<pre><code>title=Iron%&apos; and 1=1 # &amp;action=search//这里注意查询要放一个能成功查找到的
+title=Iron%&apos; and 1=2 # &amp;action=search//查询失败
+title=Iron%&apos; order by 8 # &amp;action=search</code></pre><h4 id="nbsp-nbsp-medium-and-high-1"><a href="#nbsp-nbsp-medium-and-high-1" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h4><p>&nbsp;&nbsp;和之前关卡一样无法绕过，因为 addslashes 和 mysql_real_escape_string 转义了字符，同时mysql编码无法进行宽字节绕过</p>
+<h3 id="SQL-Injection-POST-Select"><a href="#SQL-Injection-POST-Select" class="headerlink" title="SQL Injection (POST/Select)"></a>SQL Injection (POST/Select)</h3><p>&nbsp;&nbsp;与get方式的payload一样</p>
+<h3 id="SQL-Injection-AJAX-JSON-jQuery"><a href="#SQL-Injection-AJAX-JSON-jQuery" class="headerlink" title="SQL Injection (AJAX/JSON/jQuery)"></a>SQL Injection (AJAX/JSON/jQuery)</h3><h4 id="nbsp-nbsp-low-10"><a href="#nbsp-nbsp-low-10" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;通过在后台与服务器通信实现网页异步更新，实际上是通过 sqli_10-1 和 sqli_10-2 两个部分完成的，10-1对页面进行载入和数据的提交与格式化输出，而10-2则是与数据库进行交互的文件</p>
+<p>&nbsp;&nbsp;可以通过对 sqli_10-1 输入框进行注入</p>
+<p><img src="https://i.loli.net/2020/10/03/hJtNOEVurTy8jB5.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;或者也可以通过对 sqli_10-2 进行get的注入</p>
+<p><img src="https://i.loli.net/2020/10/03/QkyGHpX19waKfDT.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="nbsp-nbsp-medium-and-high-2"><a href="#nbsp-nbsp-medium-and-high-2" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h4><p>&nbsp;&nbsp;还是 addslashes 和 mysql_real_escape_string ，无法绕过</p>
+<h3 id="SQL-Injection-Login-Form-Hero"><a href="#SQL-Injection-Login-Form-Hero" class="headerlink" title="SQL Injection (Login Form/Hero)"></a>SQL Injection (Login Form/Hero)</h3><h4 id="nbsp-nbsp-low-11"><a href="#nbsp-nbsp-low-11" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h4><p>&nbsp;&nbsp;输入用户名单引号出现报错</p>
+<pre><code>用户名： 1&apos; or 1=1 #  //万能登陆</code></pre><h4 id="nbsp-nbsp-medium-and-high-3"><a href="#nbsp-nbsp-medium-and-high-3" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h4><p>&nbsp;&nbsp;还是 addslashes 和 mysql_real_escape_string ，无法绕过</p>
+<h3 id="SQL-Injection-Login-Form-User"><a href="#SQL-Injection-Login-Form-User" class="headerlink" title="SQL Injection (Login Form/User)"></a>SQL Injection (Login Form/User)</h3>
             </article>
             <hr>
             <div>
