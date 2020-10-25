@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>vulhub-Spring复现</title>
+    <link href="/2020/10/25/vulhub-Spring%E5%A4%8D%E7%8E%B0/"/>
+    <url>/2020/10/25/vulhub-Spring%E5%A4%8D%E7%8E%B0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Spring-Security-OAuth2-远程命令执行漏洞（CVE-2016-4977）"><a href="#Spring-Security-OAuth2-远程命令执行漏洞（CVE-2016-4977）" class="headerlink" title="Spring Security OAuth2 远程命令执行漏洞（CVE-2016-4977）"></a>Spring Security OAuth2 远程命令执行漏洞（CVE-2016-4977）</h2><p>&nbsp;&nbsp;Spring Security OAuth 是为 Spring 框架提供安全认证支持的一个模块。在其使用 whitelabel views 来处理错误时，由于使用了Springs Expression Language (SpEL)，攻击者在被授权的情况下可以通过构造恶意参数来远程执行命令。</p><p>&nbsp;&nbsp;目标ip：192.168.1.130</p><p>&nbsp;&nbsp;访问<a href="http://192.168.1.130:8080/oauth/authorize?response\_type=${233*233}&amp;client\_id=acme&amp;scope=openid&amp;redirect_uri=http://test" target="_blank" rel="noopener">http://192.168.1.130:8080/oauth/authorize?response\_type=${233*233}&amp;client\_id=acme&amp;scope=openid&amp;redirect_uri=http://test</a></p><p><img src="https://i.loli.net/2020/10/25/7GxLTnEmfdDobPr.png" srcset="/img/loading.gif" alt=""></p><p>&nbsp;&nbsp;可以发现233*233运行，证明可以交互，进行反弹shell，注意java反弹shell需要进行编码 <a href="http://www.jackson-t.ca/runtime-exec-payloads.html" target="_blank" rel="noopener">链接</a></p><p><img src="https://i.loli.net/2020/10/25/47asy9wgQP6tlLH.png" srcset="/img/loading.gif" alt=""></p><p>&nbsp;&nbsp;然后利用python脚本生成poc</p><p><img src="https://i.loli.net/2020/10/25/8MqzbUhATntYc7B.png" srcset="/img/loading.gif" alt=""></p><p>&nbsp;&nbsp;kalibash监听</p><pre><code>root@kali:~# nc -lvvp 8888</code></pre><p>&nbsp;&nbsp;poc填入response_type，接收到反弹shell</p><p><img src="https://i.loli.net/2020/10/25/KIUrRWGoZxDnAM7.png" srcset="/img/loading.gif" alt=""></p><h2 id="Spring-WebFlow-远程代码执行漏洞（CVE-2017-4971）"><a href="#Spring-WebFlow-远程代码执行漏洞（CVE-2017-4971）" class="headerlink" title="Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）"></a>Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）</h2><p>&nbsp;&nbsp;Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。</p><p>&nbsp;&nbsp;在此处点击confirm</p><p><img src="https://i.loli.net/2020/10/25/1kEsYpVgXjwObZv.png" srcset="/img/loading.gif" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>漏洞复现</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Vulhub</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Kioptix Level 1</title>
     <link href="/2020/10/18/Kioptix-Level-1/"/>
     <url>/2020/10/18/Kioptix-Level-1/</url>

